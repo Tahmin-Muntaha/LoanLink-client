@@ -1,11 +1,102 @@
-import React from 'react';
+import {AuthContext} from '../providers/AuthContext'
+import { LogOut, LucideMenu, MenuIcon } from "lucide-react";
+import React from "react";
+import { useContext } from "react";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
-    return (
-        <div>
-            nav
+  const {user}=useContext(AuthContext)
+  console.log(user)
+  return (
+    <div className="flex justify-between bg-[#1F7A6F] p-2 items-center shadow-2xl mb-20">
+      <NavLink className="text-white font-bold text-2xl" to='/'>🪙LoanLonk</NavLink>
+      <div>
+        <div className="dropdown dropdown-left">
+          <div tabIndex={0} role="button" className="btn m-1">
+            <LucideMenu></LucideMenu>Menu
+          </div>
+          <ul
+            tabIndex="-1"
+            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+          >
+            <li>
+              <NavLink to='/' className={({isActive})=>isActive?"bg-black text-white":""}>Home</NavLink>
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>All Loans</NavLink>
+            </li>
+            {
+              user?
+              <>
+               <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Dashboard</NavLink>
+              
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>User Avator</NavLink>
+              
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}><LogOut></LogOut>Logout</NavLink>
+              
+            </li>
+            
+              </>
+              :
+             
+
+              <>
+              
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>About Us</NavLink>
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Contact</NavLink>
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Log In</NavLink>
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Register</NavLink>
+            </li>
+              </>
+            }
+            <li>
+               <label className="flex cursor-pointer gap-2">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <circle cx="12" cy="12" r="5" />
+    <path
+      d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+  </svg>
+  <input type="checkbox" value="synthwave" className="toggle theme-controller" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</label>
+            </li>
+          </ul>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

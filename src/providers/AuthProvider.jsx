@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import {
   
-  getAuth,
+  
   onAuthStateChanged,
   
   updateProfile,
 } from 'firebase/auth'
-import { app } from '../firebase/firebase.config'
+
 import { AuthContext } from './AuthContext'
-
-const auth = getAuth(app)
-
+import {auth} from '../Firebase/firebase.config'
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)

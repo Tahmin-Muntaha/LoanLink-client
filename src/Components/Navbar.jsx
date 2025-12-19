@@ -1,12 +1,28 @@
+import { signOut } from 'firebase/auth';
 import {AuthContext} from '../providers/AuthContext'
 import { LogOut, LucideMenu, MenuIcon } from "lucide-react";
 import React from "react";
 import { useContext } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { auth } from '../Firebase/firebase.config';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
-  const {user}=useContext(AuthContext)
+  const {user,setUser}=useContext(AuthContext)
+  const navigate=useNavigate()
   console.log(user)
+  const handleLogOut=(e)=>{
+    e.preventDefault()
+    signOut(auth)
+    .then(res=>{
+      setUser(null)
+      navigate('/')
+      toast.success('Log Out Successful')
+    })
+    .catch(err=>{
+      toast.error(err.message)
+    })
+  }
   return (
     <div className="flex justify-between bg-[#1F7A6F] p-2 items-center shadow-2xl mb-20">
       <NavLink className="text-white font-bold text-2xl" to='/'>🪙LoanLonk</NavLink>
@@ -23,7 +39,7 @@ const Navbar = () => {
               <NavLink to='/' className={({isActive})=>isActive?"bg-black text-white":""}>Home</NavLink>
             </li>
             <li>
-              <NavLink  to='/' className={({isActive})=>isActive?"bg-black text-white":""}>All Loans</NavLink>
+              <NavLink  to='/all' className={({isActive})=>isActive?"bg-black text-white":""}>All Loans</NavLink>
             </li>
             {
               user?
@@ -37,7 +53,7 @@ const Navbar = () => {
               
             </li>
             <li>
-              <NavLink  to='/'  className={({isActive})=>isActive?"bg-black text-white":""}><LogOut></LogOut>Logout</NavLink>
+              <button  type="button" onClick={handleLogOut} className={({isActive})=>isActive?"bg-black text-white":""}><LogOut></LogOut>Logout</button>
               
             </li>
             

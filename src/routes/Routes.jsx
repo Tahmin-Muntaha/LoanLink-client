@@ -4,6 +4,8 @@ import MainLayout from '../Layouts/MainLayout'
 import Home from '../Pages/Home'
 import Register from '../Pages/Register'
 import Login from '../Pages/Login'
+import PrivateRoute from './PrivateRoute'
+import AllLoans from '../Pages/AllLoans'
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +23,11 @@ export const router = createBrowserRouter([
             {
                 path:'/login',
                 element:<Login></Login>
+            },
+            {
+                path:'/all',
+                element:<AllLoans></AllLoans>
+
             }
         ]
   

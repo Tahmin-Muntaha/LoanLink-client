@@ -1,7 +1,36 @@
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { NavLink } from 'react-router';
+import { auth } from '../Firebase/firebase.config';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+    const navigate=useNavigate()
+    const provider=new GoogleAuthProvider()
+    const handleLogIn=(e)=>{
+        e.preventDefault()
+        const email=e.target?.email?.value
+        const password=e.target?.password?.value
+        signInWithEmailAndPassword(auth,email,password)
+        .then(res=>{
+            navigate('/')
+            toast.success('Log In successful')
+        })
+        .catch(err=>{
+            toast.error(err.message)
+        })
+    }
+    const handleGoogle=()=>{
+        signInWithPopup(auth,provider)
+        .then(res=>{
+            navigate('/')
+            toast.success('Log In successful')
+        })
+        .catch(err=>{
+            toast.error(err.message)
+        })
+    }
     return (
          <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
@@ -21,7 +50,7 @@ const Login = () => {
         </h2>
 
        
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleLogIn}>
 
           
           
@@ -29,6 +58,7 @@ const Login = () => {
           <div>
             <label className="text-sm font-medium text-[#6B7280]">Email</label>
             <input
+            name="email"
               type="email"
               placeholder="Enter your email"
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
@@ -45,6 +75,7 @@ const Login = () => {
           <div>
             <label className="text-sm font-medium text-[#6B7280]">Password</label>
             <input
+            name="password"
               type="password"
               placeholder="Enter your password"
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
@@ -64,12 +95,13 @@ const Login = () => {
         
  <div className="text-sm text-center text-[#6B7280]">
             Continue with{' '}
-            <NavLink
-             
+            <button type="button"
+            onClick={handleGoogle}
+
               className="text-[#1F7A6F] font-medium hover:underline"
             >
              Google
-            </NavLink>
+            </button>
           </div>
           
           <button

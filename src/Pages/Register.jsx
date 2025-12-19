@@ -1,7 +1,40 @@
 import React from "react";
-import { NavLink } from "react-router";
-
+import { NavLink, useNavigate } from "react-router";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {auth} from '../Firebase/firebase.config'
+import toast from "react-hot-toast";
 const Register = () => {
+    const navigate=useNavigate()
+    const handleSignUp=(e)=>{
+        e.preventDefault()
+        const name=e.target?.name?.value
+        const email=e.target?.email?.value
+        const image=e.target?.photURl?.value
+        const role=e.target?.role?.value
+        const password=e.target?.password?.value
+        console.log(name,email,image,role,password)
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if(!passwordRegex.test(password))
+            {
+                toast.error('Password must be at least 6 characters long and contain at least one uppercase and one lowercase letter.')
+                return
+            } 
+
+       createUserWithEmailAndPassword(auth,email,password)
+       .then(res=>{
+        updateProfile(auth.currentUser,{
+            displayName:name,
+            photoURL:image,
+            role:role
+        }).then((res)=>{
+            navigate('/')
+            toast.success('Successful')})
+        .catch(err=>{toast.error(err.message)})
+       })
+       .catch(err=>{
+        toast.error(err.message)
+       })
+    }
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
@@ -21,12 +54,13 @@ const Register = () => {
         </h2>
 
        
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSignUp}> 
 
           
           <div>
             <label className="text-sm font-medium text-[#6B7280]">Name</label>
             <input
+              name="name"
               type="text"
               placeholder="Enter your name"
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
@@ -37,6 +71,7 @@ const Register = () => {
           <div>
             <label className="text-sm font-medium text-[#6B7280]">Email</label>
             <input
+            name="email"
               type="email"
               placeholder="Enter your email"
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
@@ -47,6 +82,7 @@ const Register = () => {
           <div>
             <label className="text-sm font-medium text-[#6B7280]">Photo URL</label>
             <input
+            name="photURl"
               type="text"
               placeholder="Enter your photo URL"
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
@@ -57,20 +93,21 @@ const Register = () => {
           <div>
             <label className="text-sm font-medium text-[#6B7280]">Select Role</label>
             <select
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
+              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]" name="role"
             >
-              <option disabled selected>
-                Choose role
+              <option>
+                Borrower
               </option>
-              <option value="borrower">Borrower</option>
+              
               <option value="manager">Manager</option>
             </select>
           </div>
 
          
           <div>
-            <label className="text-sm font-medium text-[#6B7280]">Password</label>
+            <label className="text-sm font-medium text-[#6B7280]" >Password</label>
             <input
+            name="password"
               type="password"
               placeholder="Enter your password"
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"

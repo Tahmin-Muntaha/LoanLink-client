@@ -23,21 +23,21 @@ const Navbar = () => {
               <NavLink to='/' className={({isActive})=>isActive?"bg-black text-white":""}>Home</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>All Loans</NavLink>
+              <NavLink  to='/' className={({isActive})=>isActive?"bg-black text-white":""}>All Loans</NavLink>
             </li>
             {
               user?
               <>
                <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Dashboard</NavLink>
+              <NavLink  to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>Dashboard</NavLink>
               
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>User Avator</NavLink>
+              <NavLink  to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>User Avator</NavLink>
               
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}><LogOut></LogOut>Logout</NavLink>
+              <NavLink  to='/'  className={({isActive})=>isActive?"bg-black text-white":""}><LogOut></LogOut>Logout</NavLink>
               
             </li>
             
@@ -48,16 +48,16 @@ const Navbar = () => {
               <>
               
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>About Us</NavLink>
+              <NavLink to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>About Us</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Contact</NavLink>
+              <NavLink to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>Contact</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Log In</NavLink>
+              <NavLink  to='/login' className={({isActive})=>isActive?"bg-black text-white":""}>Log In</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive?"bg-black text-white":""}>Register</NavLink>
+              <NavLink to='/register' className={({isActive})=>isActive?"bg-black text-white":""}>Register</NavLink>
             </li>
               </>
             }

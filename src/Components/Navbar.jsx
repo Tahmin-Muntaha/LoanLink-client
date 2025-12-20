@@ -53,7 +53,7 @@ const Navbar = () => {
               
             </li>
             <li>
-              <button  type="button" onClick={handleLogOut} className={({isActive})=>isActive?"bg-black text-white":""}><LogOut></LogOut>Logout</button>
+              <button  type="button" onClick={handleLogOut} ><LogOut></LogOut>Logout</button>
               
             </li>
             

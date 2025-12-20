@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React from 'react'
-import { useParams } from 'react-router'
+import { NavLink, useParams } from 'react-router'
 
 const Details = () => {
   const { id } = useParams()
@@ -116,9 +116,13 @@ const Details = () => {
 
       </div>
        <div className='flex justify-center'>
+       <NavLink to={`/application/${id}`}>
+       
         <button className="w-90 bg-[#1F7A6F] text-white py-3 rounded-xl font-bold text-lg hover:bg-[#16675E] transition mt-8">
             Apply Now
           </button>
+       
+       </NavLink>
        </div>
     </div>
   )

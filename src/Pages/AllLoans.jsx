@@ -27,7 +27,7 @@ const AllLoans = () => {
     )
 
   return (
-    <div className="bg-[#F9FAFB] min-h-screen px-4 sm:px-6 lg:px-10 pb-16">
+    <div className="bg-[#F9FAFB] min-h-screen px-4 md:px-10 pb-16">
       
       <div className="max-w-7xl mx-auto">
 

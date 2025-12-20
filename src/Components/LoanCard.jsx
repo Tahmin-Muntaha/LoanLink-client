@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 
 const LoanCard = ({ loan }) => {
   const {
+    _id,
     title,
     category,
     interestRate,
@@ -20,21 +21,21 @@ const LoanCard = ({ loan }) => {
         <img
           src={image}
           alt={title}
-          className="h-44 sm:h-48 md:h-52 w-full object-cover"
+          className="h-44 h-48 md:h-52 w-full object-cover"
         />
 
-        <span className="absolute top-3 left-3 bg-[#F4C430] text-[#1F2937] text-xs sm:text-sm font-bold px-3 py-1 rounded-full shadow">
+        <span className="absolute top-3 left-3 bg-[#F4C430] text-[#1F2937] text-xs font-bold px-3 py-1 rounded-full shadow">
           {category}
         </span>
       </div>
 
-      <div className="p-4 sm:p-5 space-y-3">
+      <div className="p-4  space-y-3">
         
-        <h3 className="text-base sm:text-lg md:text-xl font-extrabold text-[#1F2937] group-hover:text-[#1F7A6F] transition">
+        <h3 className=" text-lg md:text-xl font-extrabold text-[#1F2937] group-hover:text-[#1F7A6F] transition">
           {title}
         </h3>
 
-        <div className="flex flex-col sm:flex-row sm:justify-between gap-2 text-sm sm:text-base">
+        <div className="flex justify-between gap-2 text-sm ">
           <p className="text-[#6B7280]">
             Interest Rate
             <span className="block font-bold text-[#1F7A6F]">
@@ -45,13 +46,13 @@ const LoanCard = ({ loan }) => {
           <p className="text-[#6B7280]">
             Max Loan
             <span className="block font-bold text-[#1F7A6F]">
-              ৳{maxLoanLimit}
+              {maxLoanLimit}
             </span>
           </p>
         </div>
 
-        <NavLink to="/">
-          <button className="w-full mt-3 sm:mt-4 bg-[#1F7A6F] text-white py-2.5 rounded-xl font-bold tracking-wide hover:bg-[#16675E] transition">
+        <NavLink to={`/details/${_id}`}>
+          <button className="w-full mt-4 bg-[#1F7A6F] text-white py-2.5 rounded-xl font-bold tracking-wide hover:bg-[#16675E] transition">
             View Details
           </button>
         </NavLink>

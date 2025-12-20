@@ -1,11 +1,13 @@
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { auth } from '../Firebase/firebase.config';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
 const Login = () => {
+  const location =useLocation()
+  const from=location.state?.from?.pathname || '/'
     const navigate=useNavigate()
     const provider=new GoogleAuthProvider()
     const handleLogIn=(e)=>{
@@ -14,7 +16,7 @@ const Login = () => {
         const password=e.target?.password?.value
         signInWithEmailAndPassword(auth,email,password)
         .then(res=>{
-            navigate('/')
+            navigate(from,{replace:true})
             toast.success('Log In successful')
         })
         .catch(err=>{
@@ -24,7 +26,7 @@ const Login = () => {
     const handleGoogle=()=>{
         signInWithPopup(auth,provider)
         .then(res=>{
-            navigate('/')
+            navigate(from,{replace:true})
             toast.success('Log In successful')
         })
         .catch(err=>{
@@ -33,7 +35,7 @@ const Login = () => {
     }
     return (
          <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 ">
         
         
         <div className="flex justify-center mb-6">
@@ -61,7 +63,7 @@ const Login = () => {
             name="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
+              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
             />
           </div>
 
@@ -78,7 +80,7 @@ const Login = () => {
             name="password"
               type="password"
               placeholder="Enter your password"
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1F7A6F]"
+              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
             />
           </div>
 

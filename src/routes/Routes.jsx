@@ -6,6 +6,7 @@ import Register from '../Pages/Register'
 import Login from '../Pages/Login'
 import PrivateRoute from './PrivateRoute'
 import AllLoans from '../Pages/AllLoans'
+import Details from '../Pages/Details'
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,12 @@ export const router = createBrowserRouter([
                 path:'/all',
                 element:<AllLoans></AllLoans>
 
+            },
+            {
+                path:'/details/:id',
+                element:<PrivateRoute>
+                    <Details></Details>
+                </PrivateRoute>
             }
         ]
   

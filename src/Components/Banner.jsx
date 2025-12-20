@@ -17,7 +17,7 @@ const Banner = () => {
 
           <p className="text-[#374151] ">
             Get fast, secure, and flexible loan options designed to support your goals —
-            whether it’s personal needs, education, or business growth.
+            whether it's personal needs, education, or business growth.
           </p>
 
           <p className="text-[#4B5563] text-sm ">

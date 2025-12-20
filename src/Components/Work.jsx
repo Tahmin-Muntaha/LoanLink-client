@@ -2,8 +2,8 @@ import React from "react";
 
 const Work = () => {
   return (
-    <div className="bg-[#F9FAFB] px-4 py-14">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-[#F9FAFB]  py-14">
+      <div className="">
         
         <h2 className="text-2xl md:text-3xl font-bold text-center text-[#1F2937] mb-10">
           How It Works

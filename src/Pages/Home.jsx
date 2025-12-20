@@ -5,6 +5,8 @@ import axios from 'axios';
 import LoanCard from '../Components/LoanCard';
 import Work from '../Components/Work';
 import Feedback from '../Components/Feedback';
+import FAQ from '../Components/FAQ';
+import Choose from '../Components/Choose';
 
 
 const Home = () => {
@@ -33,6 +35,10 @@ const Home = () => {
             <Work></Work>
             <div className='text-2xl md:text-4xl font-bold text-[#1F2937] mt-10 flex justify-center items-center'>Feedback</div>
             <Feedback></Feedback>
+            <Choose></Choose>
+             <div className='text-2xl md:text-4xl font-bold text-[#1F2937] mt-10 flex justify-center items-center'>FAQs</div>
+             <FAQ></FAQ>
+             
         </div>
     );
 };

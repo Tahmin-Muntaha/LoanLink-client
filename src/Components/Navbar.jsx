@@ -25,7 +25,7 @@ const Navbar = () => {
   }
   return (
     <div className="flex justify-between bg-[#1F7A6F] p-2 items-center shadow-2xl mb-20">
-      <NavLink className="text-white font-bold text-2xl" to='/'>🪙LoanLonk</NavLink>
+      <NavLink className="text-white font-bold text-2xl" to='/'>🪙LoanLink</NavLink>
       <div>
         <div className="dropdown dropdown-left">
           <div tabIndex={0} role="button" className="btn m-1">

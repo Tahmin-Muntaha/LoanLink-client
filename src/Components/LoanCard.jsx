@@ -21,7 +21,7 @@ const LoanCard = ({ loan }) => {
         <img
           src={image}
           alt={title}
-          className="h-44 h-48 md:h-52 w-full object-cover"
+          className=" h-48 md:h-52 w-full"
         />
 
         <span className="absolute top-3 left-3 bg-[#F4C430] text-[#1F2937] text-xs font-bold px-3 py-1 rounded-full shadow">

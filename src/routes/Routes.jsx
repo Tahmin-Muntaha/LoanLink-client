@@ -19,6 +19,7 @@ import ApprovedLoan from '../Components/ApprovedLoan'
 
 import MyLoans from '../Components/MyLoans'
 import BorrowerProfile from '../Components/BorrowerProfile'
+import RoleRoute from './RoleRoute'
 
 export const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
                 </PrivateRoute>
             },
             {
+                        path:'/profile',
+                        element:<BorrowerProfile></BorrowerProfile>
+                    },
+            {
                 path:'/dashboard',
                 element:<PrivateRoute>
                     <Dashboard></Dashboard>
@@ -62,40 +67,67 @@ export const router = createBrowserRouter([
                 children:[
                     {
                         path:'/dashboard/manage-users',
-                        element:<ManageUser></ManageUser>
+
+                        element:<RoleRoute allowedRoles={['admin']}>
+                            <ManageUser></ManageUser>
+                        </RoleRoute>
+                        
+                        
                     },
                     {
                         path:'/dashboard/all-loan',
-                        element:<AllLoan></AllLoan>
+                        element:
+                        <RoleRoute allowedRoles={['admin']}>
+                            <AllLoan></AllLoan>
+                        </RoleRoute>
+                        
                     },
                     {
                         path:'/dashboard/loan-application',
-                        element:<DLoanApplication></DLoanApplication>
+                        element:<RoleRoute allowedRoles={['admin']}>
+                            <DLoanApplication></DLoanApplication>
+                        </RoleRoute>
                     },
                     {
                         path:'/dashboard/add-loan',
-                        element:<AddLoan></AddLoan>
+                        element:<RoleRoute allowedRoles={['manager']}>
+                                <AddLoan></AddLoan>
+                            </RoleRoute>
+                        
+                        
                     },
                     {
                         path:'/dashboard/manage-loans',
-                        element:<ManageLoans></ManageLoans>
+                        element:<RoleRoute allowedRoles={['manager']}>
+                                <ManageLoans></ManageLoans>
+                            </RoleRoute>
+                        
+                        
                     },
                     {
                         path:'/dashboard/pending-loans',
-                        element:<PendingLoan></PendingLoan>
+                        element:<RoleRoute allowedRoles={['manager']}>
+                                <PendingLoan ></PendingLoan>
+                            </RoleRoute>
                     },
                     {
                         path:'/dashboard/approved-loans',
-                        element:<ApprovedLoan></ApprovedLoan>
+                        element:<RoleRoute allowedRoles={['manager']}> 
+                            <ApprovedLoan></ApprovedLoan>
+                        </RoleRoute>
                     },
                   
                     {
                         path:'/dashboard/my-loans',
-                        element:<MyLoans></MyLoans>
+                        element:<RoleRoute allowedRoles={['Borrower']}>
+                            <MyLoans></MyLoans>
+                        </RoleRoute>
                     },
                     {
                         path:'/dashboard/profile',
-                        element:<BorrowerProfile></BorrowerProfile>
+                        element:<RoleRoute allowedRoles={['manager','Borrower']}>
+                            <BorrowerProfile></BorrowerProfile>
+                        </RoleRoute>
                     }
                 ]
             },

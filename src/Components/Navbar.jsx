@@ -49,7 +49,7 @@ const Navbar = () => {
               
             </li>
             <li>
-              <NavLink  to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>User Avator</NavLink>
+              <NavLink  to='/profile'  className={({isActive})=>isActive?"bg-black text-white":""}>User Avator</NavLink>
               
             </li>
             <li>

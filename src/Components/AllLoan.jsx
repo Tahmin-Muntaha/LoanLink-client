@@ -1,7 +1,21 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { BoxSelect, Eye, EyeOff, LassoSelectIcon } from 'lucide-react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router';
 
 const AllLoan = () => {
+  const [select,setSelect]=useState(false)
+  const { data: loans = [], isLoading, isError } = useQuery({
+    queryKey: ['loans'],
+    queryFn: async () => {
+      const res = await axios('http://localhost:3000/loans')
+      return res.data
+    }
+  })
+  
+
+  if(isLoading) return <div>Laoding....</div>
     return (
         <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
       <div className=" bg-white shadow-lg rounded-lg">
@@ -35,56 +49,51 @@ const AllLoan = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   ACTIONS
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  UPDATE
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                 DELETE
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                 SHOW ON HOME
-                </th>
+                
               </tr>
             </thead>
 
             <tbody className="bg-white">
-              <tr className="hover:bg-gray-50">
+              {
+                loans.map(loan=>
+                  <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  <img src="https://static.vecteezy.com/system/resources/previews/025/900/459/non_2x/small-business-loan-illustration-with-store-support-protection-and-growth-to-develop-in-flat-cartoon-hand-drawn-background-templates-vector.jpg" className='w-[100px]'></img>
+                  <img src={loan.image} className='w-[100px]'></img>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Small Business Growth Loan
+                  {loan.title}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
                   8
                 </td>
                 
                 <td className="px-6 py-4 text-sm cursor-pointer hover:underline">
-                  Business
+                  {loan.category}
                 </td>
                 <td className="px-6 py-4 text-sm  cursor-pointer hover:underline">
-                  Tahmin Muntaha
-                </td>
-                <td className="px-6 py-4 text-sm  cursor-pointer hover:underline">
-                  true
-                </td>
-                <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                  okay
-                </td>
-                <td>
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">Update</button>
-                  </NavLink>
-                </td>
-                <td>
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">Delete</button>
-                  </NavLink>
+                  {loan.createdBy}
                 </td>
                 <td className="px-6 py-4 text-sm cursor-pointer hover:underline">
-                  true
+                  {loan.showOnHome? "Yes":"No"}
                 </td>
+                <td className="px-6 py-4 text-sm  cursor-pointer hover:underline">
+                  <NavLink>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 ">Update</button>
+                  </NavLink>
+                  <NavLink>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2">Delete</button><br></br>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2 flex justify-center">
+                      {
+                        loan.showOnHome?(<Eye></Eye>):(<EyeOff></EyeOff>)
+                      }
+                    </button>
+                  </NavLink>
+
+                </td>
+                
               </tr>
+                )
+              }
               
             </tbody>
           </table>

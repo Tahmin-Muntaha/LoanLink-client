@@ -12,6 +12,7 @@ const ManageUser = () => {
     }
   })
   console.log(users)
+  if(isLoading) return <div>Loading....</div>
   return (
     <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
       <div className=" bg-white shadow-lg rounded-lg">

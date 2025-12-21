@@ -3,8 +3,14 @@ import { NavLink, useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Register = () => {
   const navigate = useNavigate();
+
+  const saveOrUpdateUser=async(userData)=>{
+    const {data}=await axios.post(`http://localhost:3000/user`,userData)
+    return data
+  }
   const handleSignUp = (e) => {
     e.preventDefault();
     const name = e.target?.name?.value;
@@ -26,10 +32,11 @@ const Register = () => {
         updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: image,
-          role: role,
+          
         })
           .then((res) => {
             navigate("/");
+            saveOrUpdateUser({name,email,image,role})
             toast.success("Successful");
           })
           .catch((err) => {

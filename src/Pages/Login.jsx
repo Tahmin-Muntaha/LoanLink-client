@@ -4,8 +4,13 @@ import { NavLink, useLocation } from 'react-router';
 import { auth } from '../Firebase/firebase.config';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 const Login = () => {
+  const saveOrUpdateUser=async(userData)=>{
+    const {data}=await axios.post(`http://localhost:3000/user`,userData)
+    return data
+  }
   const location =useLocation()
   const from=location.state?.from?.pathname || '/'
     const navigate=useNavigate()
@@ -16,7 +21,9 @@ const Login = () => {
         const password=e.target?.password?.value
         signInWithEmailAndPassword(auth,email,password)
         .then(res=>{
+          const {email}=res.user
             navigate(from,{replace:true})
+            saveOrUpdateUser({email})
             toast.success('Log In successful')
         })
         .catch(err=>{
@@ -26,7 +33,9 @@ const Login = () => {
     const handleGoogle=()=>{
         signInWithPopup(auth,provider)
         .then(res=>{
+          const {displayName,email,photoURL}=res.user
             navigate(from,{replace:true})
+            saveOrUpdateUser({name:displayName,email,image:photoURL,role:'Borrower'})
             toast.success('Log In successful')
         })
         .catch(err=>{

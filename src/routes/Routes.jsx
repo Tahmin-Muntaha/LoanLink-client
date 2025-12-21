@@ -12,6 +12,13 @@ import Dashboard from '../Pages/Dashboard'
 import ManageUser from '../Components/ManageUser'
 import AllLoan from '../Components/AllLoan'
 import DLoanApplication from '../Components/DLoanApplication'
+import AddLoan from '../Components/AddLoan'
+import ManageLoans from '../Components/ManageLoans'
+import PendingLoan from '../Components/PendingLoan'
+import ApprovedLoan from '../Components/ApprovedLoan'
+import ManagerProfile from '../Components/ManagerProfile'
+import MyLoans from '../Components/MyLoans'
+import BorrowerProfile from '../Components/BorrowerProfile'
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +71,34 @@ export const router = createBrowserRouter([
                     {
                         path:'/dashboard/loan-application',
                         element:<DLoanApplication></DLoanApplication>
+                    },
+                    {
+                        path:'/dashboard/add-loan',
+                        element:<AddLoan></AddLoan>
+                    },
+                    {
+                        path:'/dashboard/manage-loans',
+                        element:<ManageLoans></ManageLoans>
+                    },
+                    {
+                        path:'/dashboard/pending-loans',
+                        element:<PendingLoan></PendingLoan>
+                    },
+                    {
+                        path:'/dashboard/approved-loans',
+                        element:<ApprovedLoan></ApprovedLoan>
+                    },
+                    {
+                        path:'/dashboard/manager-profile',
+                        element:<ManagerProfile></ManagerProfile>
+                    },
+                    {
+                        path:'/dashboard/my-loans',
+                        element:<MyLoans></MyLoans>
+                    },
+                    {
+                        path:'/dashboard/borrower-profile',
+                        element:<BorrowerProfile></BorrowerProfile>
                     }
                 ]
             },

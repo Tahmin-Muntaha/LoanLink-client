@@ -39,6 +39,76 @@ const Dashboard = () => {
     >
       Loan Applications
     </NavLink>
+    <NavLink
+      to="/dashboard/add-loan"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      Add Loan
+    </NavLink>
+    <NavLink
+      to="/dashboard/manage-loans"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      Manage Loans
+    </NavLink>
+    <NavLink
+      to="/dashboard/pending-loans"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      Pendig Loans
+    </NavLink>
+    <NavLink
+      to="/dashboard/approved-loans"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      Approved Loans
+    </NavLink>
+    <NavLink
+      to="/dashboard/manager-profile"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      Manger Profile
+    </NavLink>
+    <NavLink
+      to="/dashboard/my-loans"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      My Loans
+    </NavLink>
+     <NavLink
+      to="/dashboard/borrower-profile"
+      className={({ isActive }) =>
+        isActive
+          ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
+          : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+      }
+    >
+      Approved Loans
+    </NavLink>
   </div>
 
   

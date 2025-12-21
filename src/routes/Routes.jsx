@@ -16,7 +16,7 @@ import AddLoan from '../Components/AddLoan'
 import ManageLoans from '../Components/ManageLoans'
 import PendingLoan from '../Components/PendingLoan'
 import ApprovedLoan from '../Components/ApprovedLoan'
-import ManagerProfile from '../Components/ManagerProfile'
+
 import MyLoans from '../Components/MyLoans'
 import BorrowerProfile from '../Components/BorrowerProfile'
 
@@ -88,16 +88,13 @@ export const router = createBrowserRouter([
                         path:'/dashboard/approved-loans',
                         element:<ApprovedLoan></ApprovedLoan>
                     },
-                    {
-                        path:'/dashboard/manager-profile',
-                        element:<ManagerProfile></ManagerProfile>
-                    },
+                  
                     {
                         path:'/dashboard/my-loans',
                         element:<MyLoans></MyLoans>
                     },
                     {
-                        path:'/dashboard/borrower-profile',
+                        path:'/dashboard/profile',
                         element:<BorrowerProfile></BorrowerProfile>
                     }
                 ]

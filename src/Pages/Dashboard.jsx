@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
+import useRole from '../providers/useRole';
 
 const Dashboard = () => {
+  const {role}=useRole()
+
   return (
     <div className="flex min-h-screen bg-gray-50 overflow-hidden">
   
@@ -9,7 +12,10 @@ const Dashboard = () => {
     <NavLink to='/dashboard'>
         <h2 className="text-2xl font-semibold text-gray-800" >Dashboard</h2>
     </NavLink>
-    <NavLink
+    {
+      (role==='admin')&&
+        <>
+        <NavLink
       to="/dashboard/manage-users"
       className={({ isActive }) =>
         isActive
@@ -39,7 +45,12 @@ const Dashboard = () => {
     >
       Loan Applications
     </NavLink>
-    <NavLink
+        </>
+
+      }
+      {
+        role==='manager' && <>
+        <NavLink
       to="/dashboard/add-loan"
       className={({ isActive }) =>
         isActive
@@ -80,16 +91,24 @@ const Dashboard = () => {
       Approved Loans
     </NavLink>
     <NavLink
-      to="/dashboard/manager-profile"
+      to="/dashboard/profile"
       className={({ isActive }) =>
         isActive
           ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
           : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
       }
     >
-      Manger Profile
+      Profile
     </NavLink>
-    <NavLink
+        </>
+      }
+    
+    
+    
+    {
+      role==="Borrower" &&
+      <>
+      <NavLink
       to="/dashboard/my-loans"
       className={({ isActive }) =>
         isActive
@@ -100,15 +119,17 @@ const Dashboard = () => {
       My Loans
     </NavLink>
      <NavLink
-      to="/dashboard/borrower-profile"
+      to="/dashboard/profile"
       className={({ isActive }) =>
         isActive
           ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
           : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
       }
     >
-      Approved Loans
+      Profile
     </NavLink>
+      </>
+    }
   </div>
 
   

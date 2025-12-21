@@ -45,7 +45,7 @@ const Navbar = () => {
               user?
               <>
                <li>
-              <NavLink  to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>Dashboard</NavLink>
+              <NavLink  to='/dashboard'  className={({isActive})=>isActive?"bg-black text-white":""}>Dashboard</NavLink>
               
             </li>
             <li>

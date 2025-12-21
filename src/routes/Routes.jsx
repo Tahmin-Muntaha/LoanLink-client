@@ -8,6 +8,10 @@ import PrivateRoute from './PrivateRoute'
 import AllLoans from '../Pages/AllLoans'
 import Details from '../Pages/Details'
 import LoanApplication from '../Pages/LoanApplication'
+import Dashboard from '../Pages/Dashboard'
+import ManageUser from '../Components/ManageUser'
+import AllLoan from '../Components/AllLoan'
+import DLoanApplication from '../Components/DLoanApplication'
 
 export const router = createBrowserRouter([
     {
@@ -42,7 +46,28 @@ export const router = createBrowserRouter([
                 element:<PrivateRoute>
                     <LoanApplication></LoanApplication>
                 </PrivateRoute>
-            }
+            },
+            {
+                path:'/dashboard',
+                element:<PrivateRoute>
+                    <Dashboard></Dashboard>
+                </PrivateRoute>,
+                children:[
+                    {
+                        path:'/dashboard/manage-users',
+                        element:<ManageUser></ManageUser>
+                    },
+                    {
+                        path:'/dashboard/all-loan',
+                        element:<AllLoan></AllLoan>
+                    },
+                    {
+                        path:'/dashboard/loan-application',
+                        element:<DLoanApplication></DLoanApplication>
+                    }
+                ]
+            },
+            
         ]
   
     }

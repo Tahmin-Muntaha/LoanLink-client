@@ -20,6 +20,7 @@ import ApprovedLoan from '../Components/ApprovedLoan'
 import MyLoans from '../Components/MyLoans'
 import BorrowerProfile from '../Components/BorrowerProfile'
 import RoleRoute from './RoleRoute'
+import DashBoardFontPage from '../Components/DashBoardFontPage'
 
 export const router = createBrowserRouter([
     {
@@ -65,6 +66,11 @@ export const router = createBrowserRouter([
                     <Dashboard></Dashboard>
                 </PrivateRoute>,
                 children:[
+                    {
+                        path:'/dashboard',
+                        element:<DashBoardFontPage></DashBoardFontPage>
+
+                    },
                     {
                         path:'/dashboard/manage-users',
 

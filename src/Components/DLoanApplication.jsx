@@ -1,7 +1,18 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router';
 
 const DLoanApplication = () => {
+  const {data:applications,isLoading}=useQuery({
+    queryKey:['applications'],
+    queryFn:async()=>{
+      const res=await axios('http://localhost:3000/applications')
+      return res.data
+    }
+  })
+  console.log(applications)
+  if(isLoading) return <div>Laoding.....</div>
     return (
         <div>
             <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
@@ -33,39 +44,39 @@ const DLoanApplication = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   ACTIONS
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  VIEW
-                </th>
+                
               </tr>
             </thead>
 
             <tbody className="bg-white">
-              <tr className="hover:bg-gray-50">
+              {
+                applications.map(app=>
+                  <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  4556471
+                  {app._id}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Tahmin Muntaha <br></br>
-                  tahminmuntaha66@gmail.com
+                  {app.fname} {app.lname} <br></br>
+                  {app.email}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Business
+                 {app.category}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  10000000
+                  {app.amount}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Pending
+                  {app.status}
                 </td>
                 <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                  okay
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
+                 <NavLink>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
                   </NavLink>
                 </td>
+                
               </tr>
+                )
+              }
               
             </tbody>
           </table>

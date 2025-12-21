@@ -104,18 +104,42 @@ const AddLoan = () => {
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
                
               />
-            </div>
             <div>
-              <label className="text-sm font-medium text-[#6B7280]">
-                Image
+  <label className="text-sm font-medium text-[#6B7280]">
+    Loan Image
+  </label>
+  <input
+    type="file"
+    accept="image/*"
+    className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 bg-white text-sm text-gray-700 file:border-0 file:bg-transparent file:text-gray-500"
+  />
+</div>
+
+              <label
+                htmlFor='image'
+                className='block mb-2 text-sm font-medium text-gray-700'
+              >
+                Profile Image
               </label>
               <input
-               
-                type="text"
-                placeholder="Enter your Image"
-                className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
-               
+                name='image'
+                type='file'
+                id='image'
+                accept='image/*'
+                className='block w-full text-sm text-gray-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-md file:border-0
+      file:text-sm file:font-semibold
+      file:bg-lime-50 file:text-lime-700
+      hover:file:bg-lime-100
+      bg-gray-100 border border-dashed border-lime-300 rounded-md cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-lime-400 focus:border-lime-400
+      py-2'
+      
               />
+              <p className='mt-1 text-xs text-gray-400'>
+                PNG, JPG or JPEG (max 2MB)
+              </p>
             </div>
             <div>
               <label className="text-sm font-medium text-[#6B7280]">

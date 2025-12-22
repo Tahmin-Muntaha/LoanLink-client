@@ -69,6 +69,7 @@ const LoanApplication = () => {
       extra,
       status: "pending",
       fee: "unpaid",
+      category,
     };
     console.log(applicationData)
     await mutateAsync(applicationData)

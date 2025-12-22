@@ -1,21 +1,42 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router';
 import Swal from 'sweetalert2';
 const DLoanApplication = () => {
+  const [apps,setApps]=useState(null)
   const {data:applications,isLoading}=useQuery({
     queryKey:['applications'],
     queryFn:async()=>{
-      const res=await axios('http://localhost:3000/applications')
+      const res=await axios(`http://localhost:3000/applications`)
+      setApps( res.data)
       return res.data
     }
   })
   
+const handlefilters=async(status)=>{
+  try{
+    if(status==='all'){
+      const res=await axios(`http://localhost:3000/applications`)
+      setApps( res.data)
+      
 
+    }
+    else{
+    const res=await axios(`http://localhost:3000/application/${status}`)
+    setApps(res.data)}
+    
+  }
+  catch(err){
+    console.log(err)
+
+  }
+
+}
 const handleDetails = async (id) => {
   try {
-    const res = await axios.get(`http://localhost:3000/applications/${id}`);
+    const res = await axios(`http://localhost:3000/applications/${id}`);
     const appData = res.data;
 
     Swal.fire({
@@ -60,7 +81,17 @@ const handleDetails = async (id) => {
   if(isLoading) return <div>Laoding.....</div>
   
     return (
-        <div>
+        <div className=''>
+          <div className="dropdown dropdown-end flex justify-end mr-4">
+  <div tabIndex={0} role="button" className="btn m-1">Filter</div>
+  <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+    <li onClick={()=>handlefilters('all')}><a>All</a></li>
+    <li onClick={()=>handlefilters('pending')}><a>Pending</a></li>
+    <li onClick={()=>handlefilters('approved')}><a>Approved</a></li>
+    <li onClick={()=>handlefilters('rejected')}><a>Rejected</a></li>
+  </ul>
+</div>
+          <div>
             <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
       <div className=" bg-white shadow-lg rounded-lg">
         <div className="px-6 py-4 border-b border-gray-200">
@@ -96,7 +127,7 @@ const handleDetails = async (id) => {
 
             <tbody className="bg-white">
               {
-                applications.map(app=>
+                apps.map(app=>
                   <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
                   {app._id}
@@ -135,6 +166,7 @@ View
       </div>
     </div>
    
+        </div>
         </div>
 
     );

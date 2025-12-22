@@ -126,7 +126,7 @@ const AllLoan = () => {
                   {loan.title}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  8
+                  {loan.interestRate}
                 </td>
                 
                 <td className="px-6 py-4 text-sm cursor-pointer hover:underline">

@@ -1,7 +1,61 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
+import { useContext } from 'react';
 import { NavLink } from 'react-router';
+import { AuthContext } from '../providers/AuthContext';
 
 const PendingLoan = () => {
+  const {user}=useContext(AuthContext)
+  const queryClient = useQueryClient();
+
+  const {data:loans=[],isLoading}=useQuery({
+    queryKey: ['pendingLoans', user?.email],
+    queryFn:async()=>{
+      const res =await axios(`http://localhost:3000/pendingLoans?email=${user.email}`)
+      return res.data
+    }
+  })
+const approveMutation = useMutation({
+    mutationFn: async (loanId) => {
+      return await axios.patch(`http://localhost:3000/approved/${loanId}`, {
+        status: 'approved',
+        approvedAt: new Date()
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pendingLoans', user?.email] });
+    },
+    onError:(err)=>{
+      console.log(err)
+    }
+  });
+  const ApprovedLoan=(loanId)=>
+    {
+      approveMutation.mutate(loanId)
+
+  }
+  const RejectMutation = useMutation({
+    mutationFn: async (loanId) => {
+      return await axios.patch(`http://localhost:3000/approved/${loanId}`, {
+        status: 'rejected',
+        
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pendingLoans', user?.email] });
+    },
+    onError:(err)=>{
+      console.log(err)
+    }
+  });
+  const RejectedLoan=(loanId)=>
+    {
+      RejectMutation.mutate(loanId)
+
+  }
+  if(isLoading) return <p>Loading..</p>
+  console.log(loans)
     return (
         <div>
             <div>
@@ -26,62 +80,55 @@ const PendingLoan = () => {
                  AMOUNT
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  DATE
+                  APPROVED DATE
                 </th>
                 
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   ACTIONS
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  APPROVE
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                 REJECT
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                 VIEW
-                </th>
+                
               </tr>
             </thead>
 
             <tbody className="bg-white">
-              <tr className="hover:bg-gray-50">
+              {
+                loans.map(loan=>
+                  <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  6456465
+                  {loan.loanId}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Tahmin Muntaha<br></br>
-                  tahminmuntaha66@gmail.com
+                  {loan.
+borrowerEmail
+}<br></br>
+                  {loan.borrowerName
+}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                 15418
+                 {loan.
+maxLoanLimit
+}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  12/12/12
+                  {loan.approvedAt || 'Not Approved'}
                 </td>
                 
                
                 <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                  okay
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">Approve</button>
-                  </NavLink>
-                </td>
-                 <td className="px-6 py-4 text-sm text-gray-500">
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">Reject</button>
-                  </NavLink>
+                 
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300" type="button" onClick={()=>{ApprovedLoan(loan.loanId)}}>Approve</button>
+                  <br></br>
                   
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" onClick={()=>{RejectedLoan(loan.loanId)}}>Reject</button>
+                 
+                  <NavLink to={`/details/${loan.loanId}`}>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
                   </NavLink>
-                  
                 </td>
+               
               </tr>
+                )
+              }
               
             </tbody>
           </table>

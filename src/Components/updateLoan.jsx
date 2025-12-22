@@ -56,11 +56,11 @@ createdAt}=loan
         description,
         category,
         interestRate:Number(rate),
-        maxLoanLimt:Number(max),
+        maxLoanLimit:Number(max),
         emiPlans:emis,
         requiredDocuments:documents,
         image:imageURL,
-        showOnHom:showOnHome==='Yes',
+        showOnHome:showOnHome==='Yes',
         createdBy,
         createdAt
 

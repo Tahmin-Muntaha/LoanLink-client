@@ -1,7 +1,72 @@
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../providers/AuthContext';
 
 const AddLoan = () => {
+  const {user}=useContext(AuthContext)
+  const navigate=useNavigate()
+  const imageUpload=async imageDate=>{
+    const formData=new FormData()
+    formData.append("image",imageDate)
+    const {data}=await axios.post(`https://api.imgbb.com/1/upload?key=3203a753f468a5408a8b9148365c2fc7`,
+      formData
+    )
+      return data?.data?.display_url
+    
+}
+const {
+      register,
+      handleSubmit,
+      reset,
+      formState: { errors },
+    } = useForm();
+    
+    const setMutation=useMutation({
+    mutationFn:async(Data)=>{
+        const res=await axios.post(`http://localhost:3000/loans`,Data)
+        return res.data
+    },
+    onSuccess:()=>{
+        toast.success('Updated Successfully')
+        navigate(-1)
+    }
+  })
+  const onSubmit=async(data)=>{
+    console.log(data)
+    const {title,description,category,interestRate,maxLoanLimit,emiPlans,requiredDocuments,image,showOnHome}=data
+
+    
+    
+        const imageFile=image[0]
+        const imageURL=await imageUpload(imageFile)
+    
+    const LoanData={
+        title,
+        description,
+        category,
+        interestRate:Number(interestRate),
+        maxLoanLimit:Number(maxLoanLimit),
+        emiPlans,
+        requiredDocuments,
+        image:imageURL,
+        showOnHome:showOnHome==='Yes'?true:false,
+        createdBy:user.displayName,
+        createdAt:new Date()
+
+
+
+
+
+    }
+    setMutation.mutate(LoanData)
+  }
     return (
+      
         <div>
             <div>
       <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
@@ -18,7 +83,7 @@ const AddLoan = () => {
            Add Loan
           </h2>
 
-          <form className="space-y-4" onSubmit={''}>
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="text-sm font-medium text-[#6B7280]">
                 Laon Title
@@ -28,6 +93,7 @@ const AddLoan = () => {
                 type="text"
                 placeholder='Enter your loan title'
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('title')}
                 
               />
             </div>
@@ -41,6 +107,7 @@ const AddLoan = () => {
                 type="text"
                 placeholder='Enter description'
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('description')}
                 
               />
             </div>
@@ -54,6 +121,7 @@ const AddLoan = () => {
                 type="text"
                placeholder='Enter Category'
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('category')}
                 
               />
             </div>
@@ -67,6 +135,7 @@ const AddLoan = () => {
                 type="text"
                 placeholder="Enter Interest Rate"
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('interestRate')}
                
               />
             </div>
@@ -79,6 +148,7 @@ const AddLoan = () => {
                 type="text"
                 placeholder="Enter max loan limit"
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('maxLoanLimit')}
                
               />
             </div>
@@ -90,6 +160,7 @@ const AddLoan = () => {
                 type="text"
                 placeholder="Enter required documents."
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2"
+                {...register('requiredDocuments')}
                 
               />
             </div>
@@ -102,18 +173,10 @@ const AddLoan = () => {
                 type="text"
                 placeholder="Enter your National Id/Passport Number"
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('emiPlans')}
                
               />
-            <div>
-  <label className="text-sm font-medium text-[#6B7280]">
-    Loan Image
-  </label>
-  <input
-    type="file"
-    accept="image/*"
-    className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 bg-white text-sm text-gray-700 file:border-0 file:bg-transparent file:text-gray-500"
-  />
-</div>
+            
 
               <label
                 htmlFor='image'
@@ -135,6 +198,7 @@ const AddLoan = () => {
       bg-gray-100 border border-dashed border-lime-300 rounded-md cursor-pointer
       focus:outline-none focus:ring-2 focus:ring-lime-400 focus:border-lime-400
       py-2'
+      {...register('image')}
       
               />
               <p className='mt-1 text-xs text-gray-400'>
@@ -150,6 +214,7 @@ const AddLoan = () => {
                 type="text"
                 placeholder="Yes or No"
                 className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+                {...register('showOnHome')}
                
               />
             </div>

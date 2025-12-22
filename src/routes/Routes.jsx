@@ -21,6 +21,8 @@ import MyLoans from '../Components/MyLoans'
 import BorrowerProfile from '../Components/BorrowerProfile'
 import RoleRoute from './RoleRoute'
 import DashBoardFontPage from '../Components/DashBoardFontPage'
+import { RollerCoaster } from 'lucide-react'
+import UpdateLoan from '../Components/updateLoan'
 
 export const router = createBrowserRouter([
     {
@@ -133,6 +135,12 @@ export const router = createBrowserRouter([
                         path:'/dashboard/profile',
                         element:<RoleRoute allowedRoles={['manager','Borrower']}>
                             <BorrowerProfile></BorrowerProfile>
+                        </RoleRoute>
+                    },
+                    {
+                        path:'/dashboard/updateloan/:id',
+                        element:<RoleRoute allowedRoles={['admin']}>
+                            <UpdateLoan></UpdateLoan>
                         </RoleRoute>
                     }
                 ]

@@ -73,6 +73,7 @@ const LoanApplication = () => {
     console.log(applicationData)
     await mutateAsync(applicationData)
   };
+  if(isPending) <p>loading..</p>
 
   return (
     <div>
@@ -87,7 +88,7 @@ const LoanApplication = () => {
           </div>
 
           <h2 className="text-2xl font-bold text-center text-[#1F2937] mb-6">
-            Create Your Account
+           Apply For Loan
           </h2>
 
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>

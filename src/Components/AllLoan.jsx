@@ -1,10 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { BoxSelect, Eye, EyeOff, LassoSelectIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router';
+import Swal from 'sweetalert2';
 
 const AllLoan = () => {
+  const queryClient=useQueryClient()
   const [select,setSelect]=useState(false)
   const { data: loans = [], isLoading, isError } = useQuery({
     queryKey: ['loans'],
@@ -13,7 +15,47 @@ const AllLoan = () => {
       return res.data
     }
   })
+  const deleteMuation=useMutation({
+    mutationFn:async(id)=>{
+
+      const res = await axios.delete(`http://localhost:3000/details/${id}`)
+      return res.data
+    },
+    
+      onSuccess:()=>{
+         
+      console.log(true)
+       queryClient.invalidateQueries({ queryKey: ['loans'] })
+    },
+    onError:(error)=>{
+      console.log(error)
+    
+    }
+    
+      
+      
+    }
+  )
+  const handleDelete=(id)=>{
+    Swal.fire({
+  title: "Are you sure?",
   
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    deleteMuation.mutate(id)
+    Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+  }
+});
+  }
 
   if(isLoading) return <div>Laoding....</div>
     return (
@@ -77,11 +119,11 @@ const AllLoan = () => {
                   {loan.showOnHome? "Yes":"No"}
                 </td>
                 <td className="px-6 py-4 text-sm  cursor-pointer hover:underline">
-                  <NavLink>
+                  <NavLink to={`/dashboard/updateloan/${loan._id} `}>
                     <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 ">Update</button>
                   </NavLink>
                   <NavLink>
-                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2">Delete</button><br></br>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" onClick={()=>handleDelete(loan._id)}>Delete</button><br></br>
                     <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2 flex justify-center">
                       {
                         loan.showOnHome?(<Eye></Eye>):(<EyeOff></EyeOff>)

@@ -86,32 +86,20 @@ const Details = () => {
           <h2 className="text-xl font-bold text-[#1F2937] mb-4">
             EMI Plans
           </h2>
-          <ul className="">
-            {emiPlans.map((plan, index) => (
-              <li
-                key={index}
-                className="bg-[#E6F4F2] text-[#1F7A6F] font-semibold px-4 py-2 rounded-lg my-2"
-              >
-                {plan}
-              </li>
-            ))}
-          </ul>
+          <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-5 text-[#374151] leading-relaxed">
+  {emiPlans}
+</div>
+
         </div>
 
         <div className="bg-white rounded-2xl shadow-md border border-[#E5E7EB] p-6">
           <h2 className="text-xl font-bold text-[#1F2937] mb-4">
             Required Documents
           </h2>
-          <ul className="">
-            {requiredDocuments.map((doc, index) => (
-              <li
-                key={index}
-                className="bg-[#F9FAFB] border border-[#E5E7EB] px-4 py-2 rounded-lg text-[#6B7280] font-medium my-2"
-              >
-                {doc}
-              </li>
-            ))}
-          </ul>
+          <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-5 text-[#374151] leading-relaxed space-y-2">
+  {requiredDocuments}
+</div>
+
         </div>
 
       </div>

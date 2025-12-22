@@ -139,7 +139,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path:'/dashboard/updateloan/:id',
-                        element:<RoleRoute allowedRoles={['admin']}>
+                        element:<RoleRoute allowedRoles={['admin','manager']}>
                             <UpdateLoan></UpdateLoan>
                         </RoleRoute>
                     }

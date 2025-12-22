@@ -19,7 +19,7 @@ const LoanApplication = () => {
     },
   });
 
-  const { title, interestRate, maxLoanLimit,category } = loan;
+  const { _id,title, interestRate, maxLoanLimit,category } = loan;
   const { isPending, isError, mutateAsync } = useMutation({
     mutationFn: async (payload) =>
       await axios.post("http://localhost:3000/applications", payload),
@@ -70,6 +70,7 @@ const LoanApplication = () => {
       status: "pending",
       fee: "unpaid",
       category,
+      loanid:_id
     };
     console.log(applicationData)
     await mutateAsync(applicationData)

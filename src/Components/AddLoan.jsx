@@ -32,7 +32,7 @@ const {
         return res.data
     },
     onSuccess:()=>{
-        toast.success('Updated Successfully')
+        toast.success('Added Successfully')
         navigate(-1)
     }
   })
@@ -55,7 +55,7 @@ const {
         requiredDocuments,
         image:imageURL,
         showOnHome:showOnHome==='Yes'?true:false,
-        createdBy:user.displayName,
+        createdBy:user.email,
         createdAt:new Date()
 
 

@@ -1,7 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router';
 
 const ApprovedLoan = () => {
+  const {data:loans,isLoading}=useQuery({
+    queryFn:async ()=>{
+      const res=await axios('http://localhost:3000/approvedloans')
+      return res.data
+    }
+  })
+  console.log(loans)
     return (
         <div>
             <div>
@@ -38,27 +47,34 @@ const ApprovedLoan = () => {
             </thead>
 
             <tbody className="bg-white">
-              <tr className="hover:bg-gray-50">
+              {
+                loans.map(loan=>
+                  <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  6456465
+                  {loan.loanid}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Tahmin Muntaha<br></br>
-                  tahminmuntaha66@gmail.com
+                  {loan.fname} {loan.lname}<br></br>
+                  {loan.email}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                 15418
+                 {loan.amount}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  12/12/12
+                  {loan.approvedAt
+}
                 </td>
                 
                
                 <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                  okay
+                 <NavLink to={`/details/${loan.loanid}`}>
+                                     <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
+                  </NavLink>
                 </td>
                 
               </tr>
+                )
+              }
               
             </tbody>
           </table>

@@ -95,18 +95,17 @@ const approveMutation = useMutation({
                 loans.map(loan=>
                   <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  {loan.loanId}
+                  {loan.loanid}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  {loan.
-borrowerEmail
-}<br></br>
-                  {loan.borrowerName
+                  {loan.fname} {loan.lname}
+<br></br>
+                  {loan.email
 }
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                 {loan.
-maxLoanLimit
+                 {loan.amount
+
 }
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
@@ -116,12 +115,12 @@ maxLoanLimit
                
                 <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
                  
-                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300" type="button" onClick={()=>{ApprovedLoan(loan.loanId)}}>Approve</button>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300" type="button" onClick={()=>{ApprovedLoan(loan.loanid)}}>Approve</button>
                   <br></br>
                   
-                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" onClick={()=>{RejectedLoan(loan.loanId)}}>Reject</button>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" onClick={()=>{RejectedLoan(loan.loanid)}}>Reject</button>
                  
-                  <NavLink to={`/details/${loan.loanId}`}>
+                  <NavLink to={`/details/${loan.loanid}`}>
                     <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
                   </NavLink>
                 </td>

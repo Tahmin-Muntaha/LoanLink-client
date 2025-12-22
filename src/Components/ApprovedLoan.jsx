@@ -4,12 +4,13 @@ import React from 'react';
 import { NavLink } from 'react-router';
 
 const ApprovedLoan = () => {
-  const {data:loans,isLoading}=useQuery({
+  const {data:loans=[],isLoading}=useQuery({
     queryFn:async ()=>{
       const res=await axios('http://localhost:3000/approvedloans')
       return res.data
     }
   })
+  if(isLoading) return <p>loading..</p>
   console.log(loans)
     return (
         <div>

@@ -1,7 +1,47 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
+import { AuthContext } from '../providers/AuthContext';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const MyLoans = () => {
+  const queryClient = useQueryClient()
+  const {user}=useContext(AuthContext)
+  const {data:loans=[],isLoading}=useQuery({
+    queryKey: ['myLoans', user?.email],
+    queryFn:async()=>{
+      const res=await axios(`http://localhost:3000/userapplicatios/${user.email}`)
+      return res.data
+    }
+  })
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await axios.delete(`http://localhost:3000/applications/${id}`)
+      return res.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['myLoans', user?.email]
+      })
+    }
+  })
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(id)
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+      }
+    })
+  }
+  console.log(loans)
+  if(isLoading) return <div>Loading</div>
     return (
         <div>
             <div>
@@ -28,57 +68,50 @@ const MyLoans = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   STATUS
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                  ACTIVE
+                </th>
                 
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  ACTIONS
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  VIEW
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                 CANCEL
-                </th>
-                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                 PAY
-                </th>
+                
               </tr>
             </thead>
 
             <tbody className="bg-white">
-              <tr className="hover:bg-gray-50">
+              {
+                loans.map(loan=>
+                  <tr className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  4153
+                  {loan.loanid}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Small Business Growth Loan,Business
+                  {loan.title},{loan.category}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  4512
+                  {loan.amount}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  Pending
+                 {loan.status}
                 </td>
                 
                
                 <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                  okay
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
+                  <NavLink to={`/details/${loan.loanid}`}>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
                   </NavLink>
-                </td>
-                 <td className="px-6 py-4 text-sm text-gray-500">
+                  <br></br>
                   <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">Cancel</button>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2">Pay</button>
                   </NavLink>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  <NavLink>
-                    <button className=" bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">Pay</button>
-                  </NavLink>
+                  {
+                    loan.status==='pending' &&
+                    
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300" type="button" onClick={()=>handleDelete(loan._id)}>Cancel</button>
+                  
+                  }
                 </td>
               </tr>
+                )
+              }
               
             </tbody>
           </table>

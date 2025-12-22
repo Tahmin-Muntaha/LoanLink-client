@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+
 import { BoxSelect, Eye, EyeOff, LassoSelectIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router';
@@ -55,7 +56,26 @@ const AllLoan = () => {
     });
   }
 });
+
   }
+  const toggleShowMutation=useMutation({
+    mutationFn:async({id,current})=>{
+      const loan=loans.find(l=>l._id===id)
+      const result=await axios.patch(`http://localhost:3000/details/${id}`,
+        {showOnHome:!current}
+      )
+        return result.data
+    },
+    onSuccess:()=>{
+      queryClient.invalidateQueries({ queryKey: ['loans'] })
+    },
+    onError:(err)=>{
+      console.log(err)
+    }
+  })
+  const handleShowOnHome=(id,current)=>{
+  toggleShowMutation.mutate({id,current})
+}
 
   if(isLoading) return <div>Laoding....</div>
     return (
@@ -124,7 +144,7 @@ const AllLoan = () => {
                   </NavLink>
                   <NavLink>
                     <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" onClick={()=>handleDelete(loan._id)}>Delete</button><br></br>
-                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2 flex justify-center">
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2 flex justify-center" onClick={()=>handleShowOnHome(loan._id,loan.showOnHome)}>
                       {
                         loan.showOnHome?(<Eye></Eye>):(<EyeOff></EyeOff>)
                       }

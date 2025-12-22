@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { auth } from '../Firebase/firebase.config';
 import toast from 'react-hot-toast';
@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 
 const Login = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Log In";
+  }, []); 
   const saveOrUpdateUser=async(userData)=>{
     const {data}=await axios.post(`http://localhost:3000/user`,userData)
     return data

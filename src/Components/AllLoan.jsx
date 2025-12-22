@@ -2,11 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { BoxSelect, Eye, EyeOff, LassoSelectIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import Swal from 'sweetalert2';
 
 const AllLoan = () => {
+  useEffect(() => {
+    document.title = "LoanLink - All Loan";
+  }, []); 
   const queryClient=useQueryClient()
   const [select,setSelect]=useState(false)
   const { data: loans = [], isLoading, isError } = useQuery({
@@ -77,7 +80,15 @@ const AllLoan = () => {
   toggleShowMutation.mutate({id,current})
 }
 
-  if(isLoading) return <div>Laoding....</div>
+  if(isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
     return (
         <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
       <div className=" bg-white shadow-lg rounded-lg">

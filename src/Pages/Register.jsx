@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
 import toast from "react-hot-toast";
 import axios from "axios";
 const Register = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Register";
+  }, []); 
   const navigate = useNavigate();
 
   const saveOrUpdateUser=async(userData)=>{

@@ -1,11 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router'
 import { AuthContext } from '../providers/AuthContext'
 import Swal from 'sweetalert2'
 
 const ManageLoans = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Manage Loans";
+  }, []); 
   const queryClient = useQueryClient()
   const { user } = useContext(AuthContext)
   const [search, setSearch] = useState('')
@@ -59,7 +62,15 @@ const ManageLoans = () => {
     setSearch(e.target.search.value)
   }
 
-  if (isLoading) return <p>loading..</p>
+  if (isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
 
   return (
     <div>

@@ -21,13 +21,17 @@ import MyLoans from '../Components/MyLoans'
 import BorrowerProfile from '../Components/BorrowerProfile'
 import RoleRoute from './RoleRoute'
 import DashBoardFontPage from '../Components/DashBoardFontPage'
-import { RollerCoaster } from 'lucide-react'
+
 import UpdateLoan from '../Components/updateLoan'
+import PaymentSuccess from '../Components/PaymentSuccess'
+import PaymentDetail from '../Components/PaymentDetail'
+import Error from '../Pages/Error'
 
 export const router = createBrowserRouter([
     {
         path:'/',
         element:<MainLayout></MainLayout>,
+        errorElement:<Error></Error>,
         children:[
             {
                 index:true,
@@ -61,6 +65,15 @@ export const router = createBrowserRouter([
             {
                         path:'/profile',
                         element:<BorrowerProfile></BorrowerProfile>
+                    },
+                    {
+                        path:"/paymentsuccess",
+                        element:<PaymentSuccess></PaymentSuccess>
+
+                    },
+                    {
+                        path:'payment/:id',
+                        element:<PaymentDetail></PaymentDetail>
                     },
             {
                 path:'/dashboard',
@@ -142,7 +155,8 @@ export const router = createBrowserRouter([
                         element:<RoleRoute allowedRoles={['admin','manager']}>
                             <UpdateLoan></UpdateLoan>
                         </RoleRoute>
-                    }
+                    },
+                    
                 ]
             },
             

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router';
 import { AuthContext } from '../providers/AuthContext';
 
 const AddLoan = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Add Loans";
+  }, []); 
   const {user}=useContext(AuthContext)
   const navigate=useNavigate()
   const imageUpload=async imageDate=>{

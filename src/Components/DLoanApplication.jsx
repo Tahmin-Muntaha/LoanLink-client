@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router';
 import Swal from 'sweetalert2';
 const DLoanApplication = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Apply Loans";
+  }, []); 
   const [apps,setApps]=useState(null)
   const {data:applications,isLoading}=useQuery({
     queryKey:['applications'],
@@ -78,7 +81,15 @@ const handleDetails = async (id) => {
 
 
 
-  if(isLoading) return <div>Laoding.....</div>
+  if(isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
   
     return (
         <div className=''>

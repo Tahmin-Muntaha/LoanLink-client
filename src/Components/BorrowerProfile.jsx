@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useRole from '../providers/useRole';
 import { AuthContext } from '../providers/AuthContext';
 import { LogOut } from 'lucide-react';
@@ -8,6 +8,9 @@ import { Navigate, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
 const BorrowerProfile = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Profile";
+  }, []); 
     const navigate= useNavigate()
     const {user,setUser}=useContext(AuthContext)
     console.log(user)
@@ -27,7 +30,15 @@ const BorrowerProfile = () => {
         })
     }
 
-    if(isLoading) return <div className="text-center py-10 text-gray-500">Loading.....</div>
+    if(isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">

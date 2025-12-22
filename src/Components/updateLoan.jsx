@@ -1,11 +1,14 @@
 import { useMutation, useQuery} from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 
 const UpdateLoan = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Update Loans";
+  }, []); 
     const navigate=useNavigate()
     const {id}=useParams()
     const { data: loan = [], isLoading, isError } = useQuery({
@@ -73,7 +76,15 @@ createdAt}=loan
   }
   
 
-if(isLoading) return <p>loading...</p>
+if(isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
     return (
         <div>
             <div>

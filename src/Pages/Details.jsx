@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router'
 
 const Details = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Loan Details";
+  }, []); 
   const { id } = useParams()
 
   const { data: loan = {}, isLoading } = useQuery({
@@ -16,8 +19,14 @@ const Details = () => {
 
   if (isLoading)
     return (
-      <div className="min-h-screen flex items-center justify-center text-[#1F7A6F] text-xl font-bold">
-        Loading Loan Details...
+      <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
       </div>
     )
 

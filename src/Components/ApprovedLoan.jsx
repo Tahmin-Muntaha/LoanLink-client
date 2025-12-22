@@ -1,16 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router';
 
 const ApprovedLoan = () => {
+  useEffect(() => {
+    document.title = "LoanLink - Approved Loans";
+  }, []); 
   const {data:loans=[],isLoading}=useQuery({
     queryFn:async ()=>{
       const res=await axios('http://localhost:3000/approvedloans')
       return res.data
     }
   })
-  if(isLoading) return <p>loading..</p>
+  if(isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
   console.log(loans)
     return (
         <div>

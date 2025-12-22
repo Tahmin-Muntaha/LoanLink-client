@@ -1,8 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../providers/AuthContext'
 
 const DashBoardFontPage = () => {
   const { user } = useContext(AuthContext)
+  useEffect(() => {
+    document.title = "LoanLink - Dashboard";
+  }, []); 
 
   return (
     <div className="min-h-[75vh] flex items-center justify-center bg-[#F9FAFB] px-4">

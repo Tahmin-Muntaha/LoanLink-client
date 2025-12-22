@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router';
 import { AuthContext } from '../providers/AuthContext';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -6,6 +6,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const MyLoans = () => {
+  useEffect(() => {
+    document.title = "LoanLink - My Loans";
+  }, []); 
   const queryClient = useQueryClient()
   const {user}=useContext(AuthContext)
   const {data:loans=[],isLoading}=useQuery({
@@ -40,8 +43,17 @@ const MyLoans = () => {
       }
     })
   }
-  console.log(loans)
-  if(isLoading) return <div>Loading</div>
+  
+ 
+  if(isLoading) return <div className="flex justify-center">
+        <div>
+          <span className="loading loading-ring loading-xs"></span>
+          <span className="loading loading-ring loading-sm"></span>
+          <span className="loading loading-ring loading-md"></span>
+          <span className="loading loading-ring loading-lg"></span>
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      </div>
     return (
         <div>
             <div>
@@ -99,9 +111,38 @@ const MyLoans = () => {
                     <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">View</button>
                   </NavLink>
                   <br></br>
-                  <NavLink>
-                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2">Pay</button>
+                  {
+                    loan.fee==='unpaid' && 
+                    <NavLink>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" onClick={async()=>
+
+
+  {
+  const paymentInfo = {
+    name: loan.title,
+    category: loan.category,
+    
+    price: 10,
+    quantity: 1,
+    customer: { email: user.email },
+    applicationId: loan._id 
+  }
+
+  const { data } = await axios.post(
+    'http://localhost:3000/create-checkout-session',
+    paymentInfo
+  )
+
+  window.location.href = data.url 
+}
+                    }>Pay</button>
                   </NavLink>
+                  }
+                  {
+                    loan.fee==="paid" && <NavLink to={`/payment/${loan._id}`}>
+                    <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" type="button" >Paid</button>
+                    </NavLink>
+                  }
                   {
                     loan.status==='pending' &&
                     

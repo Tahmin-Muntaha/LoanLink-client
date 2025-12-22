@@ -1,15 +1,14 @@
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-
+// Firebase configuration using VITE env variables
 const firebaseConfig = {
-  apiKey: "AIzaSyBSCl5UnjxBPwiGveDtCQm2K8Araan4AzE",
-  authDomain: "loan-link-7e150.firebaseapp.com",
-  projectId: "loan-link-7e150",
-  storageBucket: "loan-link-7e150.firebasestorage.app",
-  messagingSenderId: "948049356944",
-  appId: "1:948049356944:web:3aaaf36449fd8035c49015"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

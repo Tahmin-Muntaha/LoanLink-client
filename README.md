@@ -1,16 +1,65 @@
-# React + Vite
+# 💰 LoanLink – Microloan Request & Approval Tracker System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**LoanLink** is a full-stack web application that streamlines microloan requests, approvals, and tracking for borrowers, managers, and administrators. The system helps small financial organizations and microloan providers manage applications, verifications, EMI schedules, and repayments in one platform.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Technologies Used
 
-## React Compiler
+- **Frontend:** React, Tailwind CSS, DaisyUI, React Router, Carousel
+- **Backend:** Node.js, Express.js, MongoDB  
+- **Authentication:** Firebase (Email/Password & Google Login)  
+- **UI & Animations:** React Hot Toast, SweetAlert2
+- **Optional / Extras:** Stripe for payment, react-hook-form, JWT for private route protection  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🎯 Core Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **🌐 SPA Layout:** Dynamic navbar & footer, theme toggling (dark/light)  
+- **🔒 Authentication:** Login/Register, Google Login, Role-based access (Borrower / Manager / Admin)  
+- **💳 Loan Management:** Request, review, approve, reject loans with full CRUD operations  
+- **📊 Dashboards:** Admin & Manager dashboards with charts, loan & user management  
+- **🏡 Home Page:** Hero banner, available loans carousel, “How It Works”, customer feedback section  
+- **📝 Loan Applications:** Auto-filled borrower info, detailed loan forms, EMI plans, status tracking  
+- **⚡ Extras:** Search, filter, pagination, responsive design, toast notifications, 404 page  
+
+---
+
+## ⚙️ Dependencies Used
+
+- `react`, `react-router-dom`, `firebase`, `react-hot-toast`, `sweetalert2`  
+- `axios`, `swiper`, `framer-motion`, `tailwindcss`, `daisyui`  
+- `mongodb`, `express`, `stripe`  
+- Optional: `react-hook-form`, `jwt-decode`, `react-confetti`  
+
+---
+
+## 🚀 How to Run Locally
+
+Follow these steps to run **LoanLink** locally:
+
+```bash
+# 1️⃣ Clone the repository
+git clone https://github.com/Tahmin-Muntaha/LoanLink-client.git
+
+# 2️⃣ Navigate to the project folder
+cd LoanLink
+
+# 3️⃣ Install dependencies
+npm install
+# or using yarn
+# yarn
+
+# 4️⃣ Start the backend server
+cd server
+npm install
+npm run dev
+# Make sure MongoDB is running and .env variables are set
+
+# 5️⃣ Start the frontend server
+cd ../client
+npm run dev
+# or using yarn dev
+
+Live Link : https://fancy-halva-bb377a.netlify.app/

@@ -93,50 +93,50 @@ const AllLoan = () => {
       </div>
     );
   return (
-    <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
-      <div className=" bg-white shadow-lg rounded-lg">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-800">All Loan</h2>
+    <div className="p-6 bg-base-200 h-full overflow-x-hidden">
+      <div className=" bg-base-100 shadow-lg rounded-lg">
+        <div className="px-6 py-4 border-b border-base-300">
+          <h2 className="text-xl font-semibold text-base-content">All Loan</h2>
         </div>
 
         <div className=" overflow-y-hidden overflow-x-auto">
           <table className="min-w-[900px]">
-            <thead className="bg-gray-100">
+            <thead className="bg-base-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   IMAGE
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   TITLE
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   INTEREST
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   CATEGORY
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   CREATED BY
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   SHOW ON HOME
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60">
                   ACTIONS
                 </th>
               </tr>
             </thead>
 
-            <tbody className="bg-white">
+            <tbody className="bg-base-100">
               {loans.map((loan) => (
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                <tr className="hover:bg-base-200">
+                  <td className="px-6 py-4 text-sm font-medium text-base-content">
                     <img src={loan.image} className="w-[100px]"></img>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-base-content/70">
                     {loan.title}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-base-content/70">
                     {loan.interestRate}
                   </td>
 

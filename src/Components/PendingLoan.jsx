@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../providers/AuthContext";
@@ -82,91 +82,89 @@ const PendingLoan = () => {
     );
   console.log(loans);
   return (
-    <div>
-      <div>
-        <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
-          <div className=" bg-white shadow-lg rounded-lg">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Pending Loan Applications
-              </h2>
-            </div>
+    <div className="p-4 sm:p-6 bg-base-200 min-h-screen transition-colors duration-500">
+      <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden">
+        <div className="px-4 sm:px-6 py-4 border-b border-base-300">
+          <h2 className="text-xl font-semibold text-base-content">
+            Pending Loan Applications
+          </h2>
+        </div>
 
-            <div className=" overflow-y-hidden overflow-x-auto">
-              <table className="min-w-[900px]">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      LOAN ID
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      USER INFO(NAME AND EMAIL)
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      AMOUNT
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      APPROVED DATE
-                    </th>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px]">
+            <thead className="bg-base-200">
+              <tr>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  LOAN ID
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  USER INFO(NAME AND EMAIL)
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  AMOUNT
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  APPROVED DATE
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  ACTIONS
+                </th>
+              </tr>
+            </thead>
 
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      ACTIONS
-                    </th>
-                  </tr>
-                </thead>
+            <tbody className="bg-base-100">
+              {loans.map((loan) => (
+                <tr key={loan.loanid} className="hover:bg-base-200">
+                  <td className="px-4 sm:px-6 py-4 text-sm font-medium text-base-content whitespace-nowrap">
+                    {loan.loanid}
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm text-base-content/70">
+                    <div className="whitespace-nowrap">
+                      {loan.fname} {loan.lname}
+                    </div>
+                    <div className="text-xs text-base-content/50">
+                      {loan.email}
+                    </div>
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
+                    {loan.amount}
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
+                    {loan.approvedAt || "Not Approved"}
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm whitespace-nowrap">
+                    <div className="flex flex-col gap-2 min-w-[120px]">
+                      <button
+                        className="bg-[#1F7A6F] text-white py-2 px-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 text-xs"
+                        type="button"
+                        onClick={() => {
+                          ApprovedLoan(loan.loanid);
+                        }}
+                      >
+                        Approve
+                      </button>
 
-                <tbody className="bg-white">
-                  {loans.map((loan) => (
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                        {loan.loanid}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {loan.fname} {loan.lname}
-                        <br></br>
-                        {loan.email}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {loan.amount}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {loan.approvedAt || "Not Approved"}
-                      </td>
+                      <button
+                        className="bg-red-600 text-white py-2 px-3 rounded-xl font-semibold hover:bg-red-700 transition duration-300 text-xs"
+                        type="button"
+                        onClick={() => {
+                          RejectedLoan(loan.loanid);
+                        }}
+                      >
+                        Reject
+                      </button>
 
-                      <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                        <button
-                          className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300"
-                          type="button"
-                          onClick={() => {
-                            ApprovedLoan(loan.loanid);
-                          }}
-                        >
-                          Approve
+                      <NavLink to={`/details/${loan.loanid}`}>
+                        <button className="w-full bg-[#1F7A6F] text-white py-2 px-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 text-xs">
+                          View
                         </button>
-                        <br></br>
-
-                        <button
-                          className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2"
-                          type="button"
-                          onClick={() => {
-                            RejectedLoan(loan.loanid);
-                          }}
-                        >
-                          Reject
-                        </button>
-
-                        <NavLink to={`/details/${loan.loanid}`}>
-                          <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">
-                            View
-                          </button>
-                        </NavLink>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                      </NavLink>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

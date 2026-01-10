@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../providers/AuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -61,113 +61,117 @@ const MyLoans = () => {
       </div>
     );
   return (
-    <div>
-      <div>
-        <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
-          <div className=" bg-white shadow-lg rounded-lg">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-800">My Loans</h2>
-            </div>
+    <div className="p-4 sm:p-6 bg-base-200 min-h-screen transition-colors duration-500">
+      <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden">
+        <div className="px-4 sm:px-6 py-4 border-b border-base-300">
+          <h2 className="text-xl font-semibold text-base-content">My Loans</h2>
+        </div>
 
-            <div className=" overflow-y-hidden overflow-x-auto">
-              <table className="min-w-[900px]">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      LOAN ID
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      LOAN INFO
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      AMOUNT
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      STATUS
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                      ACTIVE
-                    </th>
-                  </tr>
-                </thead>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[800px]">
+            <thead className="bg-base-200">
+              <tr>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  LOAN ID
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  LOAN INFO
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  AMOUNT
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  STATUS
+                </th>
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                  ACTIVE
+                </th>
+              </tr>
+            </thead>
 
-                <tbody className="bg-white">
-                  {loans.map((loan) => (
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                        {loan.loanid}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {loan.title},{loan.category}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {loan.amount}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {loan.status}
-                      </td>
+            <tbody className="bg-base-100">
+              {loans.map((loan) => (
+                <tr key={loan._id} className="hover:bg-base-200">
+                  <td className="px-4 sm:px-6 py-4 text-sm font-medium text-base-content whitespace-nowrap">
+                    {loan.loanid}
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
+                    {loan.title},{loan.category}
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
+                    {loan.amount}
+                  </td>
+                  <td className="px-4 sm:px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      loan.status === 'approved' ? 'bg-green-100 text-green-800' :
+                      loan.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {loan.status}
+                    </span>
+                  </td>
 
-                      <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                        <NavLink to={`/details/${loan.loanid}`}>
-                          <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">
-                            View
+                  <td className="px-4 sm:px-6 py-4 text-sm whitespace-nowrap">
+                    <div className="flex flex-col gap-2 min-w-[120px]">
+                      <NavLink to={`/details/${loan.loanid}`}>
+                        <button className="w-full bg-[#1F7A6F] text-white py-2 px-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 text-xs">
+                          View
+                        </button>
+                      </NavLink>
+                      
+                      {loan.fee === "unpaid" && (
+                        <NavLink>
+                          <button
+                            className="w-full bg-[#1F7A6F] text-white py-2 px-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 text-xs"
+                            type="button"
+                            onClick={async () => {
+                              const paymentInfo = {
+                                name: loan.title,
+                                category: loan.category,
+
+                                price: 10,
+                                quantity: 1,
+                                customer: { email: user.email },
+                                applicationId: loan._id,
+                              };
+
+                              const { data } = await axios.post(
+                                "https://loanlink-inky.vercel.app/create-checkout-session",
+                                paymentInfo
+                              );
+
+                              window.location.href = data.url;
+                            }}
+                          >
+                            Pay
                           </button>
                         </NavLink>
-                        <br></br>
-                        {loan.fee === "unpaid" && (
-                          <NavLink>
-                            <button
-                              className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2"
-                              type="button"
-                              onClick={async () => {
-                                const paymentInfo = {
-                                  name: loan.title,
-                                  category: loan.category,
-
-                                  price: 10,
-                                  quantity: 1,
-                                  customer: { email: user.email },
-                                  applicationId: loan._id,
-                                };
-
-                                const { data } = await axios.post(
-                                  "https://loanlink-inky.vercel.app/create-checkout-session",
-                                  paymentInfo
-                                );
-
-                                window.location.href = data.url;
-                              }}
-                            >
-                              Pay
-                            </button>
-                          </NavLink>
-                        )}
-                        {loan.fee === "paid" && (
-                          <NavLink to={`/payment/${loan._id}`}>
-                            <button
-                              className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2"
-                              type="button"
-                            >
-                              Paid
-                            </button>
-                          </NavLink>
-                        )}
-                        {loan.status === "pending" && (
+                      )}
+                      {loan.fee === "paid" && (
+                        <NavLink to={`/payment/${loan._id}`}>
                           <button
-                            className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300"
+                            className="w-full bg-green-600 text-white py-2 px-3 rounded-xl font-semibold hover:bg-green-700 transition duration-300 text-xs"
                             type="button"
-                            onClick={() => handleDelete(loan._id)}
                           >
-                            Cancel
+                            Paid
                           </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                        </NavLink>
+                      )}
+                      {loan.status === "pending" && (
+                        <button
+                          className="w-full bg-red-600 text-white py-2 px-3 rounded-xl font-semibold hover:bg-red-700 transition duration-300 text-xs"
+                          type="button"
+                          onClick={() => handleDelete(loan._id)}
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

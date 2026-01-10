@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { NavLink, useParams } from "react-router";
 
 const Details = () => {
@@ -42,62 +42,48 @@ const Details = () => {
   } = loan;
 
   return (
-    <div className="bg-[#F9FAFB] min-h-screen px-4 pb-20">
+    <div className="bg-base-200 min-h-screen px-4 pb-20 transition-colors duration-500">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 pt-8">
-        <div className="bg-white rounded-2xl shadow-2xl border border-[#E5E7EB]">
-          <img src={image} alt={title} className="w-full h-64" />
+        <div className="bg-base-100 rounded-2xl shadow-2xl border border-base-300">
+          <img src={image} alt={title} className="w-full h-64 object-cover rounded-t-2xl" />
+          <div className="p-6">
+            <div className="badge badge-warning mb-4">{category}</div>
+            <h1 className="text-2xl font-bold text-base-content mb-4">{title}</h1>
+            <p className="text-base-content/70">{description}</p>
+          </div>
         </div>
 
-        <div className="">
-          <span className=" bg-[#F4C430] text-[#1F2937] font-bold px-4 py-1 rounded-full text-sm">
-            {category}
-          </span>
-
-          <h1 className=" mt-4 text-3xl md:text-4xl font-extrabold">{title}</h1>
-
-          <p className="text-[#6B7280]">{description}</p>
-
-          <div className=" mt-5 grid grid-cols-2 gap-4">
-            <div className="bg-white border border-[#E5E7EB] rounded-xl p-4 text-center shadow-sm">
-              <p className="text-sm text-[#6B7280]">Interest Rate</p>
-              <p className="text-xl font-extrabold text-[#1F7A6F]">
-                {interestRate}%
-              </p>
+        <div className="bg-base-100 rounded-2xl shadow-2xl border border-base-300 p-6">
+          <h2 className="text-xl font-bold text-base-content mb-6">Loan Details</h2>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between">
+              <span className="text-base-content/70">Interest Rate:</span>
+              <span className="font-semibold text-[#1F7A6F]">{interestRate}%</span>
             </div>
-
-            <div className="bg-white border border-[#E5E7EB] rounded-xl p-4 text-center shadow-sm">
-              <p className="text-sm text-[#6B7280]">Max Loan</p>
-              <p className="text-xl font-extrabold text-[#1F7A6F]">
-                {maxLoanLimit}
-              </p>
+            
+            <div className="flex justify-between">
+              <span className="text-base-content/70">Max Loan Limit:</span>
+              <span className="font-semibold text-[#1F7A6F]">{maxLoanLimit}</span>
+            </div>
+            
+            <div className="flex justify-between">
+              <span className="text-base-content/70">EMI Plans:</span>
+              <span className="font-semibold text-base-content">{emiPlans}</span>
+            </div>
+            
+            <div>
+              <span className="text-base-content/70">Required Documents:</span>
+              <p className="font-semibold text-base-content mt-1">{requiredDocuments}</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-14">
-        <div className="bg-white rounded-2xl shadow-md border border-[#E5E7EB] p-6">
-          <h2 className="text-xl font-bold text-[#1F2937] mb-4">EMI Plans</h2>
-          <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-5 text-[#374151] leading-relaxed">
-            {emiPlans}
-          </div>
+          <NavLink to={`/loanapplication/${id}`} className="block mt-6">
+            <button className="w-full bg-[#1F7A6F] text-white py-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">
+              Apply Now
+            </button>
+          </NavLink>
         </div>
-
-        <div className="bg-white rounded-2xl shadow-md border border-[#E5E7EB] p-6">
-          <h2 className="text-xl font-bold text-[#1F2937] mb-4">
-            Required Documents
-          </h2>
-          <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-5 text-[#374151] leading-relaxed space-y-2">
-            {requiredDocuments}
-          </div>
-        </div>
-      </div>
-      <div className="flex justify-center">
-        <NavLink to={`/application/${id}`}>
-          <button className="w-90 bg-[#1F7A6F] text-white py-3 rounded-xl font-bold text-lg hover:bg-[#16675E] transition mt-8">
-            Apply Now
-          </button>
-        </NavLink>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import useRole from '../providers/useRole';
 import { AuthContext } from '../providers/AuthContext';
 import { LogOut } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
 const BorrowerProfile = () => {
@@ -41,35 +41,35 @@ const BorrowerProfile = () => {
       </div>
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
-            <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div className="min-h-screen flex items-center justify-center bg-base-200 px-4 transition-colors duration-500">
+            <div className="w-full max-w-md bg-base-100 rounded-2xl shadow-lg p-8 text-center border border-base-300">
                 
                 <img 
                   src={photoURL} 
-                  className="w-28 h-28 mx-auto rounded-full object-cover ring-4 ring-blue-100 mb-4"
+                  className="w-28 h-28 mx-auto rounded-full object-cover ring-4 ring-[#1F7A6F]/20 mb-4"
+                  alt={displayName}
                 />
 
-                <p className="text-sm uppercase tracking-wide text-blue-600 font-semibold mb-1">
+                <p className="text-sm uppercase tracking-wide text-[#1F7A6F] font-semibold mb-1">
                   {role}
                 </p>
 
-                <p className="text-xl font-bold text-gray-800">
+                <p className="text-xl font-bold text-base-content">
                   {displayName}
                 </p>
 
-                <p className="text-gray-500 text-sm mb-6">
+                <p className="text-base-content/70 text-sm mb-6">
                   {email}
                 </p>
 
                 <button
-  type="button"
-  onClick={handleLogOut}
-  className="w-full bg-[#1F7A6F] text-white py-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-[0.98]"
->
-  <LogOut size={18} />
-  <span>Logout</span>
-</button>
-
+                  type="button"
+                  onClick={handleLogOut}
+                  className="w-full bg-[#1F7A6F] text-white py-3 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-[0.98]"
+                >
+                  <LogOut size={18} />
+                  <span>Logout</span>
+                </button>
 
             </div>
         </div>

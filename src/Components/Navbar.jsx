@@ -44,23 +44,23 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-sm"
           >
             <li>
-              <NavLink to='/' className={({isActive})=>isActive?"bg-black text-white":""}>Home</NavLink>
+              <NavLink to='/' className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>Home</NavLink>
             </li>
             <li>
-              <NavLink  to='/all' className={({isActive})=>isActive?"bg-black text-white":""}>All Loans</NavLink>
+              <NavLink  to='/all' className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>All Loans</NavLink>
             </li>
             {
               user?
               <>
                <li>
-              <NavLink  to='/dashboard'  className={({isActive})=>isActive?"bg-black text-white":""}>Dashboard</NavLink>
+              <NavLink  to='/dashboard'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>Dashboard</NavLink>
               
             </li>
             <li>
-              <NavLink  to='/profile'  className={({isActive})=>isActive?"bg-black text-white":""}>User Avator</NavLink>
+              <NavLink  to='/profile'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>User Avator</NavLink>
               
             </li>
             <li>
@@ -75,16 +75,16 @@ const Navbar = () => {
               <>
               
             <li>
-              <NavLink to='/aboutus'  className={({isActive})=>isActive?"bg-black text-white":""}>About Us</NavLink>
+              <NavLink to='/aboutus'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>About Us</NavLink>
             </li>
             <li>
-              <NavLink to='/contact'  className={({isActive})=>isActive?"bg-black text-white":""}>Contact</NavLink>
+              <NavLink to='/contact'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>Contact</NavLink>
             </li>
             <li>
-              <NavLink  to='/login' className={({isActive})=>isActive?"bg-black text-white":""}>Log In</NavLink>
+              <NavLink  to='/login' className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>Log In</NavLink>
             </li>
             <li>
-              <NavLink to='/register' className={({isActive})=>isActive?"bg-black text-white":""}>Register</NavLink>
+              <NavLink to='/register' className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>Register</NavLink>
             </li>
               </>
             }

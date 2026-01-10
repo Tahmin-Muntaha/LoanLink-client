@@ -30,58 +30,59 @@ const ApprovedLoan = () => {
     <div>
       <div>
         <div>
-          <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
-            <div className=" bg-white shadow-lg rounded-lg">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-xl font-semibold text-gray-800">
-                  Pending Loan Applications
+          <div className="p-6 bg-base-200 h-full">
+            <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden">
+              <div className="px-6 py-4 border-b border-base-300">
+                <h2 className="text-xl font-semibold text-base-content">
+                  Approved Loan Applications
                 </h2>
               </div>
 
-              <div className=" overflow-y-hidden overflow-x-auto">
-                <table className="min-w-[900px]">
-                  <thead className="bg-gray-100">
+              <div className="overflow-x-auto">
+                <table className="">
+                  <thead className="bg-base-200">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
                         LOAN ID
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
                         USER INFO(NAME AND EMAIL)
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
                         AMOUNT
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                        Approved DATE
+                      <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
+                        APPROVED DATE
                       </th>
-
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">
                         ACTIONS
                       </th>
                     </tr>
                   </thead>
 
-                  <tbody className="bg-white">
+                  <tbody className="bg-base-100">
                     {loans.map((loan) => (
-                      <tr className="hover:bg-gray-50">
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      <tr className="hover:bg-base-200" key={loan.loanid}>
+                        <td className="px-6 py-4 text-sm font-medium text-base-content whitespace-nowrap">
                           {loan.loanid}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          {loan.fname} {loan.lname}
-                          <br></br>
-                          {loan.email}
+                        <td className="px-6 py-4 text-sm text-base-content/70">
+                          <div className="whitespace-nowrap">
+                            {loan.fname} {loan.lname}
+                          </div>
+                          <div className="text-xs text-base-content/50">
+                            {loan.email}
+                          </div>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
+                        <td className="px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
                           {loan.amount}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
+                        <td className="px-6 py-4 text-sm text-base-content/70 whitespace-nowrap">
                           {loan.approvedAt}
                         </td>
-
-                        <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
+                        <td className="px-6 py-4 text-sm whitespace-nowrap">
                           <NavLink to={`/details/${loan.loanid}`}>
-                            <button className="w-full bg-[#1F7A6F] text-white py-2 px-2  rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">
+                            <button className="bg-[#1F7A6F] text-white py-2 px-4 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300">
                               View
                             </button>
                           </NavLink>

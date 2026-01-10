@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router";
 
 const LoanCard = ({ loan }) => {
@@ -15,35 +14,35 @@ const LoanCard = ({ loan }) => {
   if (!showOnHome) return null;
 
   return (
-    <div className=" bg-white rounded-2xl border border-[#E5E7EB] shadow-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+    <div className="card bg-base-100 border border-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
       
       <div className="relative">
         <img
           src={image}
           alt={title}
-          className=" h-48 md:h-52 w-full"
+          className="h-48 md:h-52 w-full object-cover"
         />
 
-        <span className="absolute top-3 left-3 bg-[#F4C430] text-[#1F2937] text-xs font-bold px-3 py-1 rounded-full shadow">
+        <div className="badge badge-warning absolute top-3 left-3 text-xs font-bold shadow">
           {category}
-        </span>
+        </div>
       </div>
 
-      <div className="p-4  space-y-3">
+      <div className="card-body p-4 space-y-3">
         
-        <h3 className=" text-lg md:text-xl font-extrabold text-[#1F2937] group-hover:text-[#1F7A6F] transition">
+        <h3 className="card-title text-lg md:text-xl font-extrabold text-base-content group-hover:text-[#1F7A6F] transition">
           {title}
         </h3>
 
-        <div className="flex justify-between gap-2 text-sm ">
-          <p className="text-[#6B7280]">
+        <div className="flex justify-between gap-2 text-sm">
+          <p className="text-base-content/70">
             Interest Rate
             <span className="block font-bold text-[#1F7A6F]">
               {interestRate}%
             </span>
           </p>
 
-          <p className="text-[#6B7280]">
+          <p className="text-base-content/70">
             Max Loan
             <span className="block font-bold text-[#1F7A6F]">
               {maxLoanLimit}
@@ -51,11 +50,13 @@ const LoanCard = ({ loan }) => {
           </p>
         </div>
 
-        <NavLink to={`/details/${_id}`}>
-          <button className="w-full mt-4 bg-[#1F7A6F] text-white py-2.5 rounded-xl font-bold tracking-wide hover:bg-[#16675E] transition">
-            View Details
-          </button>
-        </NavLink>
+        <div className="card-actions justify-end mt-4">
+          <NavLink to={`/details/${_id}`} className="w-full">
+            <button className="w-full bg-[#1F7A6F] text-white py-2.5 rounded-xl font-bold tracking-wide hover:bg-[#16675E] transition duration-300">
+              View Details
+            </button>
+          </NavLink>
+        </div>
 
       </div>
     </div>

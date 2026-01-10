@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
 import toast from "react-hot-toast";
 import axios from "axios";
+
 const Register = () => {
   useEffect(() => {
     document.title = "LoanLink - Register";
@@ -53,8 +54,8 @@ const Register = () => {
       });
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4 transition-colors duration-500">
+      <div className="w-full max-w-md bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300">
         <div className="flex justify-center mb-6">
           <img
             src="https://e7.pngegg.com/pngimages/543/566/png-clipart-microfinance-saving-bank-loan-bank-saving-leaf.png"
@@ -63,70 +64,77 @@ const Register = () => {
           />
         </div>
 
-        <h2 className="text-2xl font-bold text-center text-[#1F2937] mb-6">
+        <h2 className="text-2xl font-bold text-center text-base-content mb-6">
           Create Your Account
         </h2>
 
         <form className="space-y-4" onSubmit={handleSignUp}>
-          <div>
-            <label className="text-sm font-medium text-[#6B7280]">Name</label>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
             <input
               name="name"
               type="text"
               placeholder="Enter your name"
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+              className="input input-bordered w-full"
+              required
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-[#6B7280]">Email</label>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
             <input
               name="email"
               type="email"
               placeholder="Enter your email"
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+              className="input input-bordered w-full"
+              required
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-[#6B7280]">
-              Photo URL
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Photo URL</span>
             </label>
             <input
               name="photURl"
               type="text"
               placeholder="Enter your photo URL"
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+              className="input input-bordered w-full"
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-[#6B7280]">
-              Select Role
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Select Role</span>
             </label>
             <select
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 bg-white "
+              className="select select-bordered w-full"
               name="role"
+              required
             >
               <option value="borrower">Borrower</option>
-
               <option value="manager">Manager</option>
             </select>
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-[#6B7280]">
-              Password
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Password</span>
             </label>
             <input
               name="password"
               type="password"
               placeholder="Enter your password"
-              className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 "
+              className="input input-bordered w-full"
+              required
             />
           </div>
 
-          <div className="text-sm text-center text-[#6B7280]">
+          <div className="text-sm text-center text-base-content/70">
             Already have an account?{" "}
             <NavLink
               to="/login"

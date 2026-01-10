@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router';
 import useRole from '../providers/useRole';
 
@@ -7,12 +7,12 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-50 overflow-hidden">
+    <div className="flex min-h-screen bg-base-200 transition-colors duration-500">
 
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 bg-[#1F7A6F] text-white px-3 py-2 rounded"
+        className="md:hidden fixed top-4 left-4 z-50 bg-[#1F7A6F] text-white px-3 py-2 rounded hover:bg-[#16675E] transition duration-300"
       >
         ☰
       </button>
@@ -21,7 +21,7 @@ const Dashboard = () => {
       <div
         className={`
           fixed md:static z-40
-          min-h-screen w-60 bg-white shadow-md p-6 flex flex-col gap-6
+          min-h-screen w-60 bg-base-100 shadow-md p-6 flex flex-col gap-6
           transition-transform duration-300
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0
@@ -29,7 +29,7 @@ const Dashboard = () => {
       >
 
         <NavLink to="/dashboard">
-          <h2 className="text-2xl font-semibold text-gray-800">Dashboard</h2>
+          <h2 className="text-2xl font-semibold text-base-content">Dashboard</h2>
         </NavLink>
 
         {/* ADMIN */}
@@ -38,7 +38,7 @@ const Dashboard = () => {
             <NavLink to="manage-users" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Manage Users
             </NavLink>
@@ -46,7 +46,7 @@ const Dashboard = () => {
             <NavLink to="all-loan" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               All Loan
             </NavLink>
@@ -54,7 +54,7 @@ const Dashboard = () => {
             <NavLink to="loan-application" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Loan Applications
             </NavLink>
@@ -67,7 +67,7 @@ const Dashboard = () => {
             <NavLink to="add-loan" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Add Loan
             </NavLink>
@@ -75,7 +75,7 @@ const Dashboard = () => {
             <NavLink to="manage-loans" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Manage Loans
             </NavLink>
@@ -83,7 +83,7 @@ const Dashboard = () => {
             <NavLink to="pending-loans" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Pending Loans
             </NavLink>
@@ -91,7 +91,7 @@ const Dashboard = () => {
             <NavLink to="approved-loans" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Approved Loans
             </NavLink>
@@ -99,7 +99,7 @@ const Dashboard = () => {
             <NavLink to="profile" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Profile
             </NavLink>
@@ -112,7 +112,7 @@ const Dashboard = () => {
             <NavLink to="my-loans" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               My Loans
             </NavLink>
@@ -120,7 +120,7 @@ const Dashboard = () => {
             <NavLink to="profile" className={({ isActive }) =>
               isActive
                 ? "text-lg font-semibold text-[#1F7A6F] border-l-4 border-[#1F7A6F] pl-3"
-                : "text-lg text-gray-700 hover:text-[#1F7A6F] pl-3"
+                : "text-lg text-base-content/80 hover:text-[#1F7A6F] pl-3"
             }>
               Profile
             </NavLink>
@@ -129,7 +129,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 md:ml-0">
+      <div className="flex-1 p-4 md:p-6 overflow-x-auto">
         <Outlet />
       </div>
     </div>

@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
                 </PrivateRoute>,
                 children:[
                     {
-                        path:'/dashboard',
+                       index:true,
                         element:<DashBoardFontPage></DashBoardFontPage>
 
                     },
@@ -153,13 +153,13 @@ export const router = createBrowserRouter([
                   
                     {
                         path:'my-loans',
-                        element:<RoleRoute allowedRoles={['Borrower']}>
+                        element:<RoleRoute allowedRoles={['borrower']}>
                             <MyLoans></MyLoans>
                         </RoleRoute>
                     },
                     {
                         path:'profile',
-                        element:<RoleRoute allowedRoles={['manager','Borrower']}>
+                        element:<RoleRoute allowedRoles={['manager','borrower']}>
                             <BorrowerProfile></BorrowerProfile>
                         </RoleRoute>
                     },

@@ -30,8 +30,8 @@ const ApprovedLoan = () => {
     <div>
       <div>
         <div>
-          <div className="p-6 bg-base-200 h-full">
-            <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden">
+          <div className="p-6 bg-base-200">
+            <div className="bg-base-100 shadow-lg rounded-lg">
               <div className="px-6 py-4 border-b border-base-300">
                 <h2 className="text-xl font-semibold text-base-content">
                   Approved Loan Applications
@@ -39,7 +39,7 @@ const ApprovedLoan = () => {
               </div>
 
               <div className="overflow-x-auto">
-                <table className="">
+                <table className="w-full min-w-[800px]">
                   <thead className="bg-base-200">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-base-content/60 whitespace-nowrap">

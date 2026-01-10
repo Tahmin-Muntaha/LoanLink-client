@@ -107,7 +107,7 @@ const Dashboard = () => {
         )}
 
         {/* BORROWER */}
-        {role === "Borrower" && (
+        {role === "borrower" && (
           <>
             <NavLink to="my-loans" className={({ isActive }) =>
               isActive

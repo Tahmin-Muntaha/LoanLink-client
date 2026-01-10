@@ -8,27 +8,30 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
 const LoanApplication = () => {
-    const navigate =useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const { data: loan = {}, isLoading } = useQuery({
     queryKey: ["loan", id],
     queryFn: async () => {
-      const res = await axios(`http://localhost:3000/details/${id}`);
+      const res = await axios(`https://loanlink-inky.vercel.app/details/${id}`);
       return res.data;
     },
   });
 
-  const { _id,title, interestRate, maxLoanLimit,category } = loan;
+  const { _id, title, interestRate, maxLoanLimit, category } = loan;
   const { isPending, isError, mutateAsync } = useMutation({
     mutationFn: async (payload) =>
-      await axios.post("http://localhost:3000/applications", payload),
+      await axios.post(
+        "https://loanlink-inky.vercel.app/applications",
+        payload
+      ),
     onSuccess: () => {
       toast.success("Successful");
-      navigate('/')
+      navigate("/");
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (err) => {
+      toast.error(err.message);
     },
     retry: 3,
   });
@@ -39,7 +42,6 @@ const LoanApplication = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    
     const {
       address,
       amount,
@@ -55,7 +57,7 @@ const LoanApplication = () => {
     } = data;
     const applicationData = {
       address,
-      amount:Number(amount),
+      amount: Number(amount),
       contact,
       email,
       fname,
@@ -70,12 +72,14 @@ const LoanApplication = () => {
       status: "pending",
       fee: "unpaid",
       category,
-      loanid:_id
+      loanid: _id,
     };
-    console.log(applicationData)
-    await mutateAsync(applicationData)
+    console.log(applicationData);
+    await mutateAsync(applicationData);
   };
-  if(isLoading) return <div className="flex justify-center">
+  if (isLoading)
+    return (
+      <div className="flex justify-center">
         <div>
           <span className="loading loading-ring loading-xs"></span>
           <span className="loading loading-ring loading-sm"></span>
@@ -84,15 +88,17 @@ const LoanApplication = () => {
           <span className="loading loading-ring loading-xl"></span>
         </div>
       </div>
-  if(isPending) <div className="flex justify-center">
-        <div>
-          <span className="loading loading-ring loading-xs"></span>
-          <span className="loading loading-ring loading-sm"></span>
-          <span className="loading loading-ring loading-md"></span>
-          <span className="loading loading-ring loading-lg"></span>
-          <span className="loading loading-ring loading-xl"></span>
-        </div>
+    );
+  if (isPending)
+    <div className="flex justify-center">
+      <div>
+        <span className="loading loading-ring loading-xs"></span>
+        <span className="loading loading-ring loading-sm"></span>
+        <span className="loading loading-ring loading-md"></span>
+        <span className="loading loading-ring loading-lg"></span>
+        <span className="loading loading-ring loading-xl"></span>
       </div>
+    </div>;
 
   return (
     <div>
@@ -107,7 +113,7 @@ const LoanApplication = () => {
           </div>
 
           <h2 className="text-2xl font-bold text-center text-[#1F2937] mb-6">
-           Apply For Loan
+            Apply For Loan
           </h2>
 
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>

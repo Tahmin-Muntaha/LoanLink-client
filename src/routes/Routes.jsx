@@ -26,6 +26,8 @@ import UpdateLoan from '../Components/updateLoan'
 import PaymentSuccess from '../Components/PaymentSuccess'
 import PaymentDetail from '../Components/PaymentDetail'
 import Error from '../Pages/Error'
+import AboutUs from '../Components/AboutUs'
+import Contact from '../Components/Contact'
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +38,17 @@ export const router = createBrowserRouter([
             {
                 index:true,
                 element:<Home></Home>
+            },
+            {
+                path:'/aboutus',
+                element:<AboutUs></AboutUs>
+
+            },
+            {
+                path:'/contact',
+                element:<Contact>
+
+                </Contact>
             },
             {
                 path:'/register',
@@ -87,7 +100,7 @@ export const router = createBrowserRouter([
 
                     },
                     {
-                        path:'/dashboard/manage-users',
+                        path:'manage-users',
 
                         element:<RoleRoute allowedRoles={['admin']}>
                             <ManageUser></ManageUser>
@@ -96,7 +109,7 @@ export const router = createBrowserRouter([
                         
                     },
                     {
-                        path:'/dashboard/all-loan',
+                        path:'all-loan',
                         element:
                         <RoleRoute allowedRoles={['admin']}>
                             <AllLoan></AllLoan>
@@ -104,13 +117,13 @@ export const router = createBrowserRouter([
                         
                     },
                     {
-                        path:'/dashboard/loan-application',
+                        path:'loan-application',
                         element:<RoleRoute allowedRoles={['admin']}>
                             <DLoanApplication></DLoanApplication>
                         </RoleRoute>
                     },
                     {
-                        path:'/dashboard/add-loan',
+                        path:'add-loan',
                         element:<RoleRoute allowedRoles={['manager']}>
                                 <AddLoan></AddLoan>
                             </RoleRoute>
@@ -118,7 +131,7 @@ export const router = createBrowserRouter([
                         
                     },
                     {
-                        path:'/dashboard/manage-loans',
+                        path:'manage-loans',
                         element:<RoleRoute allowedRoles={['manager']}>
                                 <ManageLoans></ManageLoans>
                             </RoleRoute>
@@ -126,36 +139,37 @@ export const router = createBrowserRouter([
                         
                     },
                     {
-                        path:'/dashboard/pending-loans',
+                        path:'pending-loans',
                         element:<RoleRoute allowedRoles={['manager']}>
                                 <PendingLoan ></PendingLoan>
                             </RoleRoute>
                     },
                     {
-                        path:'/dashboard/approved-loans',
+                        path:'approved-loans',
                         element:<RoleRoute allowedRoles={['manager']}> 
                             <ApprovedLoan></ApprovedLoan>
                         </RoleRoute>
                     },
                   
                     {
-                        path:'/dashboard/my-loans',
+                        path:'my-loans',
                         element:<RoleRoute allowedRoles={['Borrower']}>
                             <MyLoans></MyLoans>
                         </RoleRoute>
                     },
                     {
-                        path:'/dashboard/profile',
+                        path:'profile',
                         element:<RoleRoute allowedRoles={['manager','Borrower']}>
                             <BorrowerProfile></BorrowerProfile>
                         </RoleRoute>
                     },
                     {
-                        path:'/dashboard/updateloan/:id',
+                        path:'updateloan/:id',
                         element:<RoleRoute allowedRoles={['admin','manager']}>
                             <UpdateLoan></UpdateLoan>
                         </RoleRoute>
                     },
+                    
                     
                 ]
             },

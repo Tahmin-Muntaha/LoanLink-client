@@ -1,50 +1,50 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { NavLink } from 'react-router';
-import Swal from 'sweetalert2';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { NavLink } from "react-router";
+import Swal from "sweetalert2";
 const DLoanApplication = () => {
   useEffect(() => {
     document.title = "LoanLink - Apply Loans";
-  }, []); 
-  const [apps,setApps]=useState(null)
-  const {data:applications,isLoading}=useQuery({
-    queryKey:['applications'],
-    queryFn:async()=>{
-      const res=await axios(`http://localhost:3000/applications`)
-      setApps( res.data)
-      return res.data
+  }, []);
+  const [apps, setApps] = useState(null);
+  const { data: applications, isLoading } = useQuery({
+    queryKey: ["applications"],
+    queryFn: async () => {
+      const res = await axios(`https://loanlink-inky.vercel.app/applications`);
+      setApps(res.data);
+      return res.data;
+    },
+  });
+
+  const handlefilters = async (status) => {
+    try {
+      if (status === "all") {
+        const res = await axios(
+          `https://loanlink-inky.vercel.app/applications`
+        );
+        setApps(res.data);
+      } else {
+        const res = await axios(
+          `https://loanlink-inky.vercel.app/application/${status}`
+        );
+        setApps(res.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
-  })
-  
-const handlefilters=async(status)=>{
-  try{
-    if(status==='all'){
-      const res=await axios(`http://localhost:3000/applications`)
-      setApps( res.data)
-      
+  };
+  const handleDetails = async (id) => {
+    try {
+      const res = await axios(
+        `https://loanlink-inky.vercel.app/applications/${id}`
+      );
+      const appData = res.data;
 
-    }
-    else{
-    const res=await axios(`http://localhost:3000/application/${status}`)
-    setApps(res.data)}
-    
-  }
-  catch(err){
-    console.log(err)
-
-  }
-
-}
-const handleDetails = async (id) => {
-  try {
-    const res = await axios(`http://localhost:3000/applications/${id}`);
-    const appData = res.data;
-
-    Swal.fire({
-      title: `<span style="color:#1F7A6F;">Loan Application Details</span>`,
-      html: `
+      Swal.fire({
+        title: `<span style="color:#1F7A6F;">Loan Application Details</span>`,
+        html: `
         <div style="text-align:left; padding:10px; line-height:1.6;">
           <p><strong style="color:#16675E;">Loan ID:</strong> ${appData._id}</p>
           <p><strong style="color:#16675E;">Title:</strong> ${appData.title}</p>
@@ -64,24 +64,24 @@ const handleDetails = async (id) => {
           <p><strong style="color:#16675E;">Status:</strong> ${appData.status}</p>
         </div>
       `,
-      icon: 'info',
-      iconColor: '#1F7A6F',
-      background: '#f0fdfa',
-      showCloseButton: true,
-      confirmButtonText: 'Close',
-      confirmButtonColor: '#1F7A6F',
-      customClass: {
-        popup: 'shadow-lg rounded-xl border border-gray-300'
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+        icon: "info",
+        iconColor: "#1F7A6F",
+        background: "#f0fdfa",
+        showCloseButton: true,
+        confirmButtonText: "Close",
+        confirmButtonColor: "#1F7A6F",
+        customClass: {
+          popup: "shadow-lg rounded-xl border border-gray-300",
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-
-
-  if(isLoading) return <div className="flex justify-center">
+  if (isLoading)
+    return (
+      <div className="flex justify-center">
         <div>
           <span className="loading loading-ring loading-xs"></span>
           <span className="loading loading-ring loading-sm"></span>
@@ -90,99 +90,105 @@ const handleDetails = async (id) => {
           <span className="loading loading-ring loading-xl"></span>
         </div>
       </div>
-  
-    return (
-        <div className=''>
-          <div className="dropdown dropdown-end flex justify-end mr-4">
-  <div tabIndex={0} role="button" className="btn m-1">Filter</div>
-  <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-    <li onClick={()=>handlefilters('all')}><a>All</a></li>
-    <li onClick={()=>handlefilters('pending')}><a>Pending</a></li>
-    <li onClick={()=>handlefilters('approved')}><a>Approved</a></li>
-    <li onClick={()=>handlefilters('rejected')}><a>Rejected</a></li>
-  </ul>
-</div>
-          <div>
-            <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
-      <div className=" bg-white shadow-lg rounded-lg">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-800">Loan Applications</h2>
-        </div>
+    );
 
-       
-        <div className=" overflow-y-hidden overflow-x-auto">
-          <table className="min-w-[900px]">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  LOAN ID
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  USER(EMAIL,NAME)
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  LOAN CATEGORY
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  AMOUNT
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  STATUS
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  ACTIONS
-                </th>
-                
-              </tr>
-            </thead>
-
-            <tbody className="bg-white">
-              {
-                apps.map(app=>
-                  <tr className="hover:bg-gray-50">
-                <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                  {app._id}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  {app.fname} {app.lname} <br></br>
-                  {app.email}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                 {app.category}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  {app.amount}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  {app.status}
-                </td>
-                <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
-                  <button className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2" onClick={()=>{
-                    handleDetails(app._id)
-                    
-                  }}>
-View
-                  </button>
-                 
-                </td>
-                
-              </tr>
-                )
-              }
-              
-            </tbody>
-          </table>
+  return (
+    <div className="">
+      <div className="dropdown dropdown-end flex justify-end mr-4">
+        <div tabIndex={0} role="button" className="btn m-1">
+          Filter
         </div>
-       
+        <ul
+          tabIndex="-1"
+          className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+        >
+          <li onClick={() => handlefilters("all")}>
+            <a>All</a>
+          </li>
+          <li onClick={() => handlefilters("pending")}>
+            <a>Pending</a>
+          </li>
+          <li onClick={() => handlefilters("approved")}>
+            <a>Approved</a>
+          </li>
+          <li onClick={() => handlefilters("rejected")}>
+            <a>Rejected</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div className="p-6 bg-gray-50 h-full overflow-x-hidden">
+          <div className=" bg-white shadow-lg rounded-lg">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-800">
+                Loan Applications
+              </h2>
+            </div>
+
+            <div className=" overflow-y-hidden overflow-x-auto">
+              <table className="min-w-[900px]">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      LOAN ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      USER(EMAIL,NAME)
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      LOAN CATEGORY
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      AMOUNT
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      STATUS
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      ACTIONS
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody className="bg-white">
+                  {apps.map((app) => (
+                    <tr className="hover:bg-gray-50">
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                        {app._id}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {app.fname} {app.lname} <br></br>
+                        {app.email}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {app.category}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {app.amount}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {app.status}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-blue-600 cursor-pointer hover:underline">
+                        <button
+                          className="w-full bg-[#1F7A6F] text-white py-2 px-2 rounded-xl font-semibold hover:bg-[#16675E] transition duration-300 my-2"
+                          onClick={() => {
+                            handleDetails(app._id);
+                          }}
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-   
-        </div>
-        </div>
-
-    );
+  );
 };
 
 export default DLoanApplication;
-
-

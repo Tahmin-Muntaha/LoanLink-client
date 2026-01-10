@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth';
 import {AuthContext} from '../providers/AuthContext'
 import { LogOut, LucideMenu, MenuIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { auth } from '../Firebase/firebase.config';
@@ -9,6 +9,17 @@ import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const {user,setUser}=useContext(AuthContext)
+  const [theme,setTheme]=useState(localStorage.getItem('theme') || 'light')
+    useEffect(()=>{
+        const html=document.querySelector('html')
+        html.setAttribute('data-theme',theme)
+        localStorage.setItem('theme',theme)
+
+    },[theme])
+    const handleTheme=(checked)=>{
+        setTheme(checked?"dark":"light")
+    }
+        
   const navigate=useNavigate()
   console.log(user)
   const handleLogOut=(e)=>{
@@ -64,10 +75,10 @@ const Navbar = () => {
               <>
               
             <li>
-              <NavLink to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>About Us</NavLink>
+              <NavLink to='/aboutus'  className={({isActive})=>isActive?"bg-black text-white":""}>About Us</NavLink>
             </li>
             <li>
-              <NavLink to='/'  className={({isActive})=>isActive?"bg-black text-white":""}>Contact</NavLink>
+              <NavLink to='/contact'  className={({isActive})=>isActive?"bg-black text-white":""}>Contact</NavLink>
             </li>
             <li>
               <NavLink  to='/login' className={({isActive})=>isActive?"bg-black text-white":""}>Log In</NavLink>
@@ -93,7 +104,16 @@ const Navbar = () => {
     <path
       d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
   </svg>
-  <input type="checkbox" value="synthwave" className="toggle theme-controller" />
+  
+        <input
+  type="checkbox"
+  checked={theme === "dark"}
+  onChange={(e) => handleTheme(e.target.checked)}
+  className="toggle"
+/>
+
+        
+       
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="20"

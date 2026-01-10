@@ -1,54 +1,51 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import axios from 'axios'
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
-import { auth } from '../Firebase/firebase.config'
-import { useContext } from 'react'
-import { AuthContext } from './AuthContext'
+import { auth } from "../Firebase/firebase.config";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: "https://loanlink-inky.vercel.app/",
   withCredentials: true,
-})
+});
 
 const useAxiosSecure = () => {
-  const { user, logOut, loading } = useContext(AuthContext)
-  const navigate = useNavigate()
+  const { user, logOut, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && user?.accessToken) {
-     
       const requestInterceptor = axiosInstance.interceptors.request.use(
-        config => {
-          config.headers.Authorization = `Bearer ${user.accessToken}`
-          return config
+        (config) => {
+          config.headers.Authorization = `Bearer ${user.accessToken}`;
+          return config;
         }
-      )
+      );
 
-      
       const responseInterceptor = axiosInstance.interceptors.response.use(
-        res => res,
-        err => {
+        (res) => res,
+        (err) => {
           if (err?.response?.status === 401 || err?.response?.status === 403) {
             logOut()
               .then(() => {
-                console.log('Logged out successfully.')
+                console.log("Logged out successfully.");
               })
-              .catch(console.error)
-            navigate('/login')
+              .catch(console.error);
+            navigate("/login");
           }
-          return Promise.reject(err)
+          return Promise.reject(err);
         }
-      )
+      );
 
-      
       return () => {
-        axiosInstance.interceptors.request.eject(requestInterceptor)
-        axiosInstance.interceptors.response.eject(responseInterceptor)
-      }
+        axiosInstance.interceptors.request.eject(requestInterceptor);
+        axiosInstance.interceptors.response.eject(responseInterceptor);
+      };
     }
-  }, [user, loading, logOut, navigate])
+  }, [user, loading, logOut, navigate]);
 
-  return axiosInstance
-}
-export default useAxiosSecure
+  return axiosInstance;
+};
+export default useAxiosSecure;

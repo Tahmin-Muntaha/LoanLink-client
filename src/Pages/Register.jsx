@@ -7,19 +7,22 @@ import axios from "axios";
 const Register = () => {
   useEffect(() => {
     document.title = "LoanLink - Register";
-  }, []); 
+  }, []);
   const navigate = useNavigate();
 
-  const saveOrUpdateUser=async(userData)=>{
-    const {data}=await axios.post(`http://localhost:3000/user`,userData)
-    return data
-  }
+  const saveOrUpdateUser = async (userData) => {
+    const { data } = await axios.post(
+      `https://loanlink-inky.vercel.app/user`,
+      userData
+    );
+    return data;
+  };
   const handleSignUp = (e) => {
     e.preventDefault();
     const name = e.target?.name?.value;
     const email = e.target?.email?.value;
     const image = e.target?.photURl?.value;
-    const role = e.target?.role?.value;
+    const role = e.target?.role?.value.toLowerCase();
     const password = e.target?.password?.value;
     console.log(name, email, image, role, password);
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -35,11 +38,10 @@ const Register = () => {
         updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: image,
-          
         })
           .then((res) => {
             navigate("/");
-            saveOrUpdateUser({name,email,image,role})
+            saveOrUpdateUser({ name, email, image, role });
             toast.success("Successful");
           })
           .catch((err) => {
@@ -106,7 +108,7 @@ const Register = () => {
               className="w-full mt-1 border border-[#E5E7EB] rounded-lg px-3 py-2 bg-white "
               name="role"
             >
-              <option>Borrower</option>
+              <option value="borrower">Borrower</option>
 
               <option value="manager">Manager</option>
             </select>

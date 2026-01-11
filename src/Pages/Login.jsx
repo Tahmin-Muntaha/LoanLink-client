@@ -83,6 +83,7 @@ const Login = () => {
               placeholder="Enter your email"
               className="input input-bordered w-full"
               required
+              defaultValue="tahminmuntaha@gmail.com"
             />
           </div>
 
@@ -96,9 +97,18 @@ const Login = () => {
               placeholder="Enter your password"
               className="input input-bordered w-full"
               required
+              defaultValue="123456Qw"
             />
           </div>
-
+          <div className="text-xs text-[#1F7A6F]">
+            <p>Want to know admin activities?Login with default credentials</p>
+          <p>Want to know manager activities?Use this credentials</p>
+          <p>Email : pu12@gmail.com</p>
+          <p>Password : 1234Qw</p>
+          <p>Want to know borrower activities?Use this credentials</p>
+          <p>Email : tahminmuntaha66@gmail.com</p>
+          <p>Password : 1234Qw</p>
+          </div>
           <div className="text-sm text-center text-base-content/70">
             New in our website?{" "}
             <NavLink

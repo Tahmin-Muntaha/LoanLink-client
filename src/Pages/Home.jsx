@@ -8,6 +8,11 @@ import Feedback from "../Components/Feedback";
 import FAQ from "../Components/FAQ";
 import Choose from "../Components/Choose";
 import { useEffect } from "react";
+import Category from "../Components/Category";
+import Interest from "../Components/Interest";
+import { WheatOffIcon } from "lucide-react";
+import Who from "../Components/Who";
+import Data from "../Components/Data";
 
 const Home = () => {
   useEffect(() => {
@@ -52,15 +57,19 @@ const Home = () => {
         </div>
       }
       <Work></Work>
-      <div className="text-2xl md:text-4xl font-bold text-[#1F2937] mt-10 flex justify-center items-center">
+      <div className="text-2xl md:text-4xl font-bold text-[#1F2937] dark:text-white pb-8 mt-10 flex justify-center items-center">
         Feedback
       </div>
       <Feedback></Feedback>
       <Choose></Choose>
-      <div className="text-2xl md:text-4xl font-bold text-[#1F2937] mt-10 flex justify-center items-center">
+      <div className="text-2xl md:text-4xl font-bold text-[#1F2937] dark:text-white pb-8 mt-10 flex justify-center items-center">
         FAQs
       </div>
       <FAQ></FAQ>
+      <Category></Category>
+      <Interest></Interest>
+      <Who></Who>
+      <Data></Data>
     </div>
   );
 };

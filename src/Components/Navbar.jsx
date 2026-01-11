@@ -35,7 +35,7 @@ const Navbar = () => {
     })
   }
   return (
-    <div className="flex justify-between bg-[#1F7A6F] p-2 items-center shadow-2xl mb-20">
+    <div className="flex justify-between bg-[#1F7A6F] p-2 items-center shadow-2xl mb-20 sticky top-0 z-[100]">
       <NavLink className="text-white font-bold text-2xl" to='/'>🪙LoanLink</NavLink>
       <div>
         <div className="dropdown dropdown-left">
@@ -62,6 +62,13 @@ const Navbar = () => {
             <li>
               <NavLink  to='/profile'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>User Avator</NavLink>
               
+            </li>
+            
+            <li>
+              <NavLink to='/aboutus'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>About Us</NavLink>
+            </li>
+            <li>
+              <NavLink to='/contact'  className={({isActive})=>isActive?"bg-[#1F7A6F] text-white":"text-base-content"}>Contact</NavLink>
             </li>
             <li>
               <button  type="button" onClick={handleLogOut} ><LogOut></LogOut>Logout</button>

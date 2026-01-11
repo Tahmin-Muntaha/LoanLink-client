@@ -79,6 +79,7 @@ const Register = () => {
               placeholder="Enter your name"
               className="input input-bordered w-full"
               required
+              defaultValue="Mr.X"
             />
           </div>
 
@@ -92,6 +93,7 @@ const Register = () => {
               placeholder="Enter your email"
               className="input input-bordered w-full"
               required
+              defaultValue="mrX@gmail.com"
             />
           </div>
 
@@ -104,6 +106,7 @@ const Register = () => {
               type="text"
               placeholder="Enter your photo URL"
               className="input input-bordered w-full"
+              defaultValue="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrkGQqfd0zx5MbNFmScTyE-r3frjzSutAIvA&s"
             />
           </div>
 
@@ -131,9 +134,10 @@ const Register = () => {
               placeholder="Enter your password"
               className="input input-bordered w-full"
               required
+              defaultValue="1234Qw"
             />
           </div>
-
+<div className="text-xs text-[#1F7A6F]">Make sign up easy?Use default credentials and use role as you wish.</div>
           <div className="text-sm text-center text-base-content/70">
             Already have an account?{" "}
             <NavLink

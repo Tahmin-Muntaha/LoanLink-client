@@ -62,4 +62,4 @@ cd ../client
 npm run dev
 # or using yarn dev
 
-Live Link : https://fancy-halva-bb377a.netlify.app/
+Live Link :  https://cute-nasturtium-a6533f.netlify.app/
